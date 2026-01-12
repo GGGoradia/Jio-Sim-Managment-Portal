@@ -43,9 +43,9 @@ services:
     # depends_on:
     #   - db
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://host.docker.internal:3306/jio_sim
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: Hp27052002@
+      SPRING_DATASOURCE_URL: jdbc:postgresql://host.docker.internal:5433/jio_sim
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: baks2274
     networks:
       - jio
 
