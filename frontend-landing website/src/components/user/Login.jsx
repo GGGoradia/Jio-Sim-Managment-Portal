@@ -116,7 +116,7 @@ const Login = () => {
                             <input type='checkbox' id="checkbox" />
                             Remember Me
                         </label>
-                        <Link to="/bussiness/user/login">Forget password?</Link>
+                        <Link to="/bussiness/login">Forget password?</Link>
                     </div>
 
                     {/* Submit Button */}
