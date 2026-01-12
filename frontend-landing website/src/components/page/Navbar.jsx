@@ -61,7 +61,7 @@ const Navbartop = () => {
 
           <FaHeart className="outer-search-icon"/>
           <MdShowChart className="outer-search-icon"/>
-          <NavLink to="/bussiness/user/signup">
+          <NavLink to="/bussiness/signup">
           <FaUserCircle className="outer-search-icon" id="user-img"/>
           </NavLink>
           </Navbar>

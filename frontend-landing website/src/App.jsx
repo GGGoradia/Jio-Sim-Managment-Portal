@@ -36,7 +36,7 @@ const App = () => {
       element: <><Navbar /><Home /><Footer/></>,
     },
     {
-      path: "/bussiness/user/login",
+      path: "/bussiness/login",
       // element: <><Navbar/><Login/><Footer/></>,
       element: <><Navbar/><LoginNew/><Footer/></>,
     },
@@ -75,7 +75,7 @@ const App = () => {
       element: <><Navbar /><PaymentSucess/><Footer/></>,
     },
     {
-      path: "/bussiness/user/signup",
+      path: "/bussiness/signup",
       element: <><Navbar/><Login/><Footer/></>,
     },
     {
