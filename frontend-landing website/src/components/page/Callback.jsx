@@ -51,7 +51,7 @@ const Callback = () => {
         <h4>Please share your details</h4>
       </div>
 
-      <form className='callback-form' on onSubmit={handelsubmit}>
+      <form className='callback-form'  onSubmit={handelsubmit}>
 
         <div className="form-input">
           <div className='input-container'>

@@ -116,7 +116,7 @@ const Login = () => {
                             <input type='checkbox' id="checkbox" />
                             Remember Me
                         </label>
-                        <Link to="/">Forget password?</Link>
+                        <Link to="/bussiness/user/login">Forget password?</Link>
                     </div>
 
                     {/* Submit Button */}
@@ -126,7 +126,10 @@ const Login = () => {
                 </form>
                 
                 <h6 className='forget-id'>
-                    <Link>Forget Jio ID?</Link>  <span>|</span> <Link>Activate account</Link>
+                    <Link to="/bussiness/user/login">User Login</Link>
+                    <br />
+                    <br />
+                    <Link to="/bussiness/user/login">Forget Jio ID?</Link>  <span>|</span> <Link to="/bussiness/user/login">Activate account</Link>
                 </h6>
 
                 <div className={`login-error ${!isloginerror?'display-none':''}`}>
