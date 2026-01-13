@@ -19,7 +19,7 @@
 // import com.simmanagmentplatform.Dto.UsersDTO;
 // import com.simmanagmentplatform.Entity.JwtRequest;
 // import com.simmanagmentplatform.Entity.JwtResponse;
-// import com.simmanagmentplatform.Security.JwtTokenHelper;
+// // import com.simmanagmentplatform.Security.JwtTokenHelper;
 
 // import jakarta.validation.Valid;
 
@@ -30,14 +30,14 @@
 // public class AuthController {
 
 
-//     @Autowired
-//     private UserDetailsService userDetailsService;
+//     // @Autowired
+//     // private UserDetailsService userDetailsService;
 
-//     @Autowired
-//     private AuthenticationManager authenticationManager;
+//     // @Autowired
+//     // private AuthenticationManager authenticationManager;
     
-//     @Autowired
-//     private JwtTokenHelper helper;
+//     // @Autowired
+//     // private JwtTokenHelper helper;
     
 //     @Autowired
 //     private ModelMapper modelMapper;
@@ -45,18 +45,18 @@
 //      @PostMapping("/login")
 //    public ResponseEntity<JwtResponse> createToken(@Valid @RequestBody JwtRequest
 //       request) throws Exception {
-//       try {
-//          authenticationManager.authenticate(
-//             new UsernamePasswordAuthenticationToken(request.getEmail()));
-//       } catch (DisabledException e) {
-//          throw new Exception("USER_DISABLED", e);
-//       } catch (BadCredentialsException e) {
-//          throw new Exception("INVALID_CREDENTIALS", e);
-//       } catch (InternalAuthenticationServiceException e) {
-//         throw new Exception("Internal authentication error", e);
-//       }
-//       final UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
-//       final String jwtToken = helper.generateJwtToken(userDetails);
+//     //   try {
+//     //     //  authenticationManager.authenticate(
+//     //     //     new UsernamePasswordAuthenticationToken(request.getEmail()));
+//     //   } catch (DisabledException e) {
+//     //      throw new Exception("USER_DISABLED", e);
+//     //   } catch (BadCredentialsException e) {
+//     //      throw new Exception("INVALID_CREDENTIALS", e);
+//     //   } catch (InternalAuthenticationServiceException e) {
+//     //     throw new Exception("Internal authentication error", e);
+//     //   }
+//     //   final UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
+//     //   final String jwtToken = helper.generateJwtToken(userDetails);
 //       // System.out.println(userDetails.getId());
 //       UsersDTO usersDTO = this.modelMapper.map(userDetails,UsersDTO.class);
 //       return ResponseEntity.ok(new JwtResponse(jwtToken,usersDTO));

@@ -53,38 +53,43 @@ const Login = () => {
           setisbuttonDisabled(true);
     },[user.email,user.password]);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        // const newErrors = {};
-        // if (!user.email) newErrors.email = "Email is required.";
-        // if (!user.password) newErrors.password = "Password is required.";
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-        // if (Object.keys(newErrors).length > 0) {
-        //     setErrors(newErrors);
-        //     return;
-        // }
+  try {
+    const response = await axios.post(
+      "http://localhost:8080/api/auth/login",
+      user,
+      { headers: { "Content-Type": "application/json" } }
+    );
 
-        const response = await axios.post("http://localhost:2705/api/auth/login", user);
-        console.log(response.data);
-        const data = response.data;
+    const data = response.data;
 
-        if (response.status === 200) {
-            toast.success("Login successful");
-            const userDetails = {
-                user: data.usersDTO,
-                token: data.jwtToken
-            };
-            const role_id = data.usersDTO.roles[0].charAt(data.usersDTO.roles[0].indexOf('=') + 1);
-            dispatch(setCredentials(userDetails));
-            if (role_id === '1')
-                navigate("/user/admin");
-            else
-                navigate("/user/dashboard");
+    // Store in Redux
+    dispatch(setCredentials({
+      user: {
+        id: data.userId,
+        name: data.name,
+        roles: data.roles
+      },
+      token: null // JWT later
+    }));
 
-        } else {
-            setisloginerror(true);
-        }
+    toast.success("Login successful");
+
+    // Role-based navigation
+    if (data.roles.includes("ADMIN")) {
+      navigate("/admin");
+    } else if (data.roles.includes("AGENT")) {
+      navigate("/agent/dashboard");
+    } else {
+      navigate("/user/dashboard");
     }
+
+  } catch (err) {
+    toast.error("Invalid email or password");
+  }
+};
 
     return (
         <div className='login-container'>
@@ -120,7 +125,7 @@ const Login = () => {
                     </div>
 
                     {/* Submit Button */}
-                    <button type='submit' className='login-btn' disabled={isbuttonDisabled}>
+                    <button type='submit' className='login-btn' disabled={isbuttonDisabled} >
                         Log in
                     </button>
                 </form>

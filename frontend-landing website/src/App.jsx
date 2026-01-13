@@ -80,7 +80,7 @@ const App = () => {
     },
     {
       path: '/user',
-      element: <UserPrivateroute />,
+      // element: <UserPrivateroute />,
       children: [
         {
           path: 'dashboard',  
@@ -90,10 +90,10 @@ const App = () => {
           path: 'profile-info',  
           element: <><Navbar /><UserProfileInfo /><Footer /></>,
         },
-        {
-          path: 'admin',  
-          element: <><AdminDashboard/></>,
-        },
+        // {
+        //   path: 'admin',  
+        //   element: <><AdminDashboard/></>,
+        // },
       ],
     },
     {
