@@ -28,6 +28,8 @@ import ResearchCollaboration from './components/page/ResearchCollaboration.jsx';
 import ScrollToTop from './components/layouts/ScrollToTop.jsx';
 import LearnMore from './components/page/LearnMore.jsx';
 import SecureCommunication from './components/page/SecureCommunication.jsx';
+import PrivateRoute from "./components/privateroutes/PrivateRoute";
+
 
 const App = () => {
   const router = createBrowserRouter([
@@ -80,7 +82,7 @@ const App = () => {
     },
     {
       path: '/user',
-      // element: <UserPrivateroute />,
+      element :<PrivateRoute allowedRoles={["USER","ADMIN"]}/>,
       children: [
         {
           path: 'dashboard',  
@@ -97,8 +99,14 @@ const App = () => {
       ],
     },
     {
-      path: '/admin',  
-      element: <><AdminDashboard/></>,
+      path: '/admin',
+      element: <PrivateRoute allowedRoles={["ADMIN"]} />,
+      children: [
+        {
+          index:true,
+          element: <AdminDashboard />,
+        }
+      ]
     },
     {
       path: "/video-recording-kyc",
