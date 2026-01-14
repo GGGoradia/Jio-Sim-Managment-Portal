@@ -79,7 +79,7 @@ const handleSubmit = async (e) => {
 
     // Role-based navigation
     if (data.roles.includes("ADMIN")) {
-      navigate("/admin");
+      navigate("/admin/dashboard");
     } else if (data.roles.includes("AGENT")) {
       navigate("/agent/dashboard");
     } else {

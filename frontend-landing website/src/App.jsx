@@ -29,7 +29,7 @@ import ScrollToTop from './components/layouts/ScrollToTop.jsx';
 import LearnMore from './components/page/LearnMore.jsx';
 import SecureCommunication from './components/page/SecureCommunication.jsx';
 import PrivateRoute from "./components/privateroutes/PrivateRoute";
-
+import AgentDashboard from "./components/agent/AgentDashboard.jsx"
 
 const App = () => {
   const router = createBrowserRouter([
@@ -103,9 +103,19 @@ const App = () => {
       element: <PrivateRoute allowedRoles={["ADMIN"]} />,
       children: [
         {
-          index:true,
+          path:'dashboard',
           element: <AdminDashboard />,
         }
+      ]
+    },
+    {
+      path:'/agent',
+      element:<PrivateRoute allowedRoles={['AGENT']}/>,
+      children : [
+        {
+          path:'dashboard',
+          element: <AgentDashboard/>,
+        }  
       ]
     },
     {
