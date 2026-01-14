@@ -1,0 +1,197 @@
+/* ===== Root Wrapper ===== */
+
+.inventory-dashboard {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== Top Nav ===== */
+
+.inventory-nav-bar {
+  display: flex;
+  align-items: center;
+  padding: 1vmax 2vmax;
+  color: white;
+  background-color: #161d6f;
+}
+
+/* ===== Main Layout ===== */
+
+.inventory-dashboard-container {
+  display: flex;
+  flex: 1;              /* KEY FIX */
+  min-height: 0;        /* Prevent overflow issues */
+}
+
+/* ===== Sidebar ===== */
+
+.side-nav-panel {
+  width: 20%;
+  background-color: #161d6f;
+}
+
+.side-nav-content {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  height: 100%;         /* KEY FIX */
+  min-height: 100%;     /* KEY FIX */
+  color: white;
+  background-color: #161d6f;
+  border-right: 2px solid #161d6f;
+
+  li {
+    padding: 1.5vmax 2vmax;
+  }
+
+  li:hover {
+    background-color: rgb(248, 248, 248);
+    color: rgba(1, 1, 192, 0.936);
+    cursor: pointer;
+  }
+
+  .collappse {
+    display: none;
+  }
+
+  .arrow-rotate {
+    transform: rotateZ(272deg);
+    transition: all 0.5s ease-in-out;
+  }
+
+  .noarrow-rotate {
+    transition: all 0.5s ease-in-out;
+  }
+
+  .backgd-color {
+    background-color: rgb(248, 248, 248);
+    color: rgba(1, 1, 150, 0.936);
+  }
+
+  .side-nav-content-details {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background-color: rgb(248, 248, 248);
+    font-size: 1.15vmax;
+    color: rgba(0, 0, 0, 0.936);
+
+    li {
+      margin-left: 1vmax;
+      padding: 0.5vmax 1vmax;
+    }
+
+    li:hover {
+      transform: scale(1.1);
+      color: #0d1889;
+    }
+
+    .content-selected {
+      transform: scale(1.1);
+      text-decoration: underline;
+      color: #0d1889;
+    }
+  }
+}
+
+/* ===== Content Area ===== */
+
+.inventory-content {
+  width: 80%;
+  padding: 2vmax;
+  background-color: rgb(238, 243, 248);
+  overflow-y: auto;      /* Scroll content, not page */
+
+  h1 {
+    font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  }
+
+  table {
+    width: 100%;
+    border-radius: 10px 10px 0 0;
+    overflow: hidden;
+
+    th {
+      padding: 0.7vmax 2vmax;
+      font-size: 1vmax;
+      font-weight: 600;
+      color: #ffffff;
+      background-color: #0f3cc9;
+    }
+
+    td {
+      padding: 0.3vmax 2vmax;
+      font-size: 1vmax;
+    }
+
+    tr {
+      font-weight: 500;
+      border: 1.3px solid rgb(156, 156, 156);
+    }
+  }
+}
+/* ===== FIX ADD INVENTORY FORM ===== */
+
+.inventory-form {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr) auto;
+  gap: 1vmax;
+  align-items: center;
+  margin-top: 1.5vmax;
+}
+
+/* Inputs */
+.inventory-form input {
+  width: 100%;
+  padding: 0.6vmax;
+  font-size: 1vmax;
+  border-radius: 6px;
+  border: 1px solid rgb(160, 160, 160);
+}
+
+.inventory-form input:focus {
+  outline: none;
+  border-color: #0f3cc9;
+}
+
+.inventroy-form {
+  display: flex;
+  gap: 0.8vmax;
+  width: 100%;
+}
+
+.inventory-form select,
+.inventroy-form input {
+  flex: 1;
+  padding: 0.6vmax;
+  font-size: 1vmax;
+  border-radius: 6px;
+  border: 1px solid rgb(160, 160, 160);
+}
+
+.inventory-form select:focus,
+.inventory-form input:focus {
+  outline: none;
+  border-color: #0f3cc9;
+}
+
+
+/* Button */
+.inventory-form button {
+  padding: 0.6vmax 1.5vmax;
+  border-radius: 8px;
+  border: none;
+  background-color: #0f3cc9;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease-in-out;
+}
+
+.inventory-form button:hover {
+  transform: scale(1.05);
+}
+
