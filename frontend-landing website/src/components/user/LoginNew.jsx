@@ -195,7 +195,7 @@ const LoginNew = () => {
                 </form>
 
                 <h6 className='forget-id'>
-                    <Link to="/bussiness/login">Forget Jio ID?</Link>  <span>|</span> <Link to="/bussiness/login">Activate account</Link>
+                    <Link to="/bussiness/signup">Forget Jio ID?</Link>  <span>|</span> <Link to="/bussiness/signup">Activate account</Link>
                 </h6>
 
                 <div className={`login-error ${!isloginerror ? 'display-none' : ''}`}>
