@@ -17,11 +17,11 @@ public class SimpleAuthController {
     @Autowired
     private AuthServices authService;
 
-    // check endpoint (TEMP but useful)
-    @GetMapping("/test")
-    public String test() {
-        return "AUTH CONTROLLER WORKING";
-    }
+    // // check endpoint (TEMP but useful)
+    // @GetMapping("/test")
+    // public String test() {
+    //     return "AUTH CONTROLLER WORKING";
+    // }
 
     //  Login endpoint
     @PostMapping("/login")
