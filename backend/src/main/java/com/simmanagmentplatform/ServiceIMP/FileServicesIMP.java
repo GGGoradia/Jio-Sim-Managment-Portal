@@ -28,6 +28,7 @@ public class FileServicesIMP implements FileServices {
 
         //random name generate file
         String randomID= UUID.randomUUID().toString();
+        @SuppressWarnings("null")
         String fileName1=randomID.concat(name.substring(name.lastIndexOf(".")));
         
         //Fullpath
