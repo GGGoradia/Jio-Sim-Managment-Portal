@@ -10,7 +10,7 @@ public class AgentEntity {
     @Column(name="iccid",length = 25,nullable = false,updatable = false)
     private String iccid;
     
-    @Column(name="agent",length=50,unique=true,nullable=false)
+    @Column(name="agentid",length=50,unique=true,nullable=false)
     private String agent;
 
     @Column(name="status",nullable = false)
@@ -19,7 +19,7 @@ public class AgentEntity {
     @Column(name="make_model",length = 100)
     private String makeModel;
 
-    @Column(name="date_of_entry",nullable = false)
+    @Column(name="dateofentry",nullable = false)
     private LocalDate dateOfEntry;
 
     public AgentEntity(){

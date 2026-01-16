@@ -1,197 +1,223 @@
-/* ===== Root Wrapper ===== */
-
+/* ================= GLOBAL WRAPPER ================= */
 .inventory-dashboard {
+  padding: 24px;
+  background-color: #f5f7fa;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* ===== Top Nav ===== */
+/* ================= KPI CARDS ================= */
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 25px;
+}
 
-.inventory-nav-bar {
+.stat-card {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+}
+
+.stat-card h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.stat-card p {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a73e8;
+}
+
+/* ================= SEARCH + ADD ================= */
+.inventory-actions {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.inventory-actions input {
+  width: 280px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.inventory-actions button {
+  background-color: #1a73e8;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.inventory-actions button:hover {
+  background-color: #1558b0;
+}
+
+/* ================= TABLE ================= */
+.inventory-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.inventory-table thead {
+  background-color: #f1f3f6;
+}
+
+.inventory-table th,
+.inventory-table td {
+  padding: 12px 14px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.inventory-table th {
+  font-weight: 600;
+  color: #444;
+}
+
+.inventory-table tbody tr {
+  border-bottom: 1px solid #eee;
+}
+
+.inventory-table tbody tr:hover {
+  background-color: #f9fafc;
+}
+
+.inventory-table tbody td {
+  color: #333;
+}
+
+/* ================= MODAL BACKDROP ================= */
+.inventorymodal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+
+/* ================= MODAL BOX ================= */
+.inventory_modal {
+  background: #ffffff;
+  padding: 24px;
+  width: 380px;
+  border-radius: 10px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+.inventory_modal h2 {
+  margin-bottom: 16px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* ================= MODAL FORM ================= */
+.inventory_modal form input,
+.inventory_modal form select {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+.top-header {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
   padding: 1vmax 2vmax;
   color: white;
   background-color: #161d6f;
+  .nav-item {
+    border: none;
+  }
 }
-
-/* ===== Main Layout ===== */
-
-.inventory-dashboard-container {
+/* ================= MODAL BUTTONS ================= */
+.modal-actions {
   display: flex;
-  flex: 1;              /* KEY FIX */
-  min-height: 0;        /* Prevent overflow issues */
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
 }
 
-/* ===== Sidebar ===== */
-
-.side-nav-panel {
-  width: 20%;
-  background-color: #161d6f;
-}
-
-.side-nav-content {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  height: 100%;         /* KEY FIX */
-  min-height: 100%;     /* KEY FIX */
-  color: white;
-  background-color: #161d6f;
-  border-right: 2px solid #161d6f;
-
-  li {
-    padding: 1.5vmax 2vmax;
-  }
-
-  li:hover {
-    background-color: rgb(248, 248, 248);
-    color: rgba(1, 1, 192, 0.936);
-    cursor: pointer;
-  }
-
-  .collappse {
-    display: none;
-  }
-
-  .arrow-rotate {
-    transform: rotateZ(272deg);
-    transition: all 0.5s ease-in-out;
-  }
-
-  .noarrow-rotate {
-    transition: all 0.5s ease-in-out;
-  }
-
-  .backgd-color {
-    background-color: rgb(248, 248, 248);
-    color: rgba(1, 1, 150, 0.936);
-  }
-
-  .side-nav-content-details {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    background-color: rgb(248, 248, 248);
-    font-size: 1.15vmax;
-    color: rgba(0, 0, 0, 0.936);
-
-    li {
-      margin-left: 1vmax;
-      padding: 0.5vmax 1vmax;
-    }
-
-    li:hover {
-      transform: scale(1.1);
-      color: #0d1889;
-    }
-
-    .content-selected {
-      transform: scale(1.1);
-      text-decoration: underline;
-      color: #0d1889;
-    }
-  }
-}
-
-/* ===== Content Area ===== */
-
-.inventory-content {
-  width: 80%;
-  padding: 2vmax;
-  background-color: rgb(238, 243, 248);
-  overflow-y: auto;      /* Scroll content, not page */
-
-  h1 {
-    font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
-  }
-
-  table {
-    width: 100%;
-    border-radius: 10px 10px 0 0;
-    overflow: hidden;
-
-    th {
-      padding: 0.7vmax 2vmax;
-      font-size: 1vmax;
-      font-weight: 600;
-      color: #ffffff;
-      background-color: #0f3cc9;
-    }
-
-    td {
-      padding: 0.3vmax 2vmax;
-      font-size: 1vmax;
-    }
-
-    tr {
-      font-weight: 500;
-      border: 1.3px solid rgb(156, 156, 156);
-    }
-  }
-}
-/* ===== FIX ADD INVENTORY FORM ===== */
-
-.inventory-form {
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr) auto;
-  gap: 1vmax;
-  align-items: center;
-  margin-top: 1.5vmax;
-}
-
-/* Inputs */
-.inventory-form input {
-  width: 100%;
-  padding: 0.6vmax;
-  font-size: 1vmax;
+.modal-actions button {
+  padding: 8px 14px;
+  font-size: 14px;
   border-radius: 6px;
-  border: 1px solid rgb(160, 160, 160);
-}
-
-.inventory-form input:focus {
-  outline: none;
-  border-color: #0f3cc9;
-}
-
-.inventroy-form {
-  display: flex;
-  gap: 0.8vmax;
-  width: 100%;
-}
-
-.inventory-form select,
-.inventroy-form input {
-  flex: 1;
-  padding: 0.6vmax;
-  font-size: 1vmax;
-  border-radius: 6px;
-  border: 1px solid rgb(160, 160, 160);
-}
-
-.inventory-form select:focus,
-.inventory-form input:focus {
-  outline: none;
-  border-color: #0f3cc9;
-}
-
-
-/* Button */
-.inventory-form button {
-  padding: 0.6vmax 1.5vmax;
-  border-radius: 8px;
-  border: none;
-  background-color: #0f3cc9;
-  color: white;
-  font-weight: 500;
   cursor: pointer;
-  white-space: nowrap;
-  transition: all 0.2s ease-in-out;
+  border: none;
 }
 
-.inventory-form button:hover {
-  transform: scale(1.05);
+.modal-actions button[type="submit"] {
+  background-color: #1a73e8;
+  color: white;
+}
+
+.modal-actions button[type="submit"]:hover {
+  background-color: #1558b0;
+}
+
+.modal-actions button[type="button"] {
+  background-color: #e0e0e0;
+}
+
+.modal-actions button[type="button"]:hover {
+  background-color: #cfcfcf;
+
+}
+
+/* ===== MODERN SELECT DROPDOWN ===== */
+.inventory_modal select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+
+  padding: 10px 40px 10px 12px;
+  font-size: 14px;
+  cursor: pointer;
+
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24'%3E%3Cpath fill='%23666' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 14px;
+}
+
+.inventory_modal select:focus {
+  outline: none;
+  border-color: #1a237e;
+  box-shadow: 0 0 0 2px rgba(26, 35, 126, 0.15);
 }
 

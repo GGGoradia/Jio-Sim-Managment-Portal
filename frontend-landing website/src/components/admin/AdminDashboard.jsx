@@ -45,7 +45,7 @@ const AdminDashboard = () => {
           <ul class="dropdown-menu">
             <li><Link class="dropdown-item" to="/user/profile-info">My Profile</Link></li>
             <li><hr class="dropdown-divider m-0" /></li>
-            <li><Link class="dropdown-item logout" to="/login" 
+            <li><Link class="dropdown-item logout" to="/bussiness/login" 
             // onClick={() => { dispatch(logOut()) }}
             >Logout</Link></li>
           </ul>

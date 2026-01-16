@@ -6,7 +6,7 @@ const PrivateRoute = ({ allowedRoles }) => {
 
   // Not logged in
   if (!isAuthenticated) {
-    return <Navigate to="/bussiness/signup" replace />;
+    return <Navigate to="/bussiness/login" replace />;
   }
 
   // Role check (only if roles are specified)
