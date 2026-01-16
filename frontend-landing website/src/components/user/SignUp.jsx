@@ -11,7 +11,7 @@ import { setCredentials } from "../features/auth/authSlice";
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
-const LoginNew = () => {
+const SignUp= () => {
     const [user, setUser] = useState({
         phoneNumber: "",
         otp:""
@@ -208,4 +208,4 @@ const LoginNew = () => {
     )
 }
 
-export default LoginNew;
+export default SignUp;

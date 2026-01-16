@@ -20,7 +20,7 @@ import PaymentSucess from './components/orders/PymentSucess.jsx';
 import Recording from './components/e-KYC/Recording.jsx';
 import PersonalDetails from './components/e-KYC/PersonalDetails.jsx';
 import TrackOrder from './components/orders/TrackOrder.jsx';
-import LoginNew from './components/user/LoginNew.jsx';
+import SignUp from './components/user/SignUp.jsx';
 import Resources from './components/page/Resources.jsx';
 import ResourcePages from './components/page/ResourcePages.jsx';
 import Overview from './components/page/Overview.jsx';
@@ -40,7 +40,7 @@ const App = () => {
     {
       path: "/bussiness/signup",
       // element: <><Navbar/><Login/><Footer/></>,
-      element: <><Navbar/><LoginNew/><Footer/></>,
+      element: <><Navbar/><SignUp/><Footer/></>,
     },
     {
       path: "/components/Resources",
