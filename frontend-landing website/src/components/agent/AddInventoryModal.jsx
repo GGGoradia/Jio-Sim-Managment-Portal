@@ -1,14 +1,17 @@
 import { useState } from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const AddInventoryModal = ({ close, refresh }) => {
+  
+  const agentid=useSelector((state)=>state.auth.user?.id)
+
   const [form, setForm] = useState({
     iccid: "",
-    agent: "",
+    agent: agentid||"",
     status: "",
     makeModel: "",
   });
-
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -31,7 +34,7 @@ const AddInventoryModal = ({ close, refresh }) => {
 
         <form onSubmit={submitHandler}>
           <input name="iccid" placeholder="ICCID" onChange={handleChange} required />
-          <input name="agent" placeholder="Agent" onChange={handleChange} required />
+          <input name="agent" onChange={handleChange} value={agentid||""} required disabled />
 
           <select
             name="status"
