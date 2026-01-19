@@ -5,4 +5,5 @@ import com.simmanagmentplatform.Entity.AgentEntity;
 public interface AgentServices {
     AgentEntity addInventory (AgentDTO dto);
     List<AgentEntity> getAllInventory();
+    AgentEntity updateInventory(String oldIccid, AgentDTO dto);
 }

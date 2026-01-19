@@ -31,5 +31,22 @@ public class AgentServicesIMP implements AgentServices {
     public List<AgentEntity> getAllInventory(){
         return agentRepo.findAll();
     };
+    
+    @Override
+    public AgentEntity updateInventory(String oldIccid,AgentDTO dto){
+        AgentEntity old=agentRepo.findById(oldIccid).orElseThrow(()->new RuntimeException("Inventory Not Found"));
+        if (!oldIccid.equals(dto.getIccid()) && agentRepo.existsById(dto.getIccid())){
+            throw new RuntimeException("ICCID Already exists");
+        }
+        agentRepo.delete(old);
+        AgentEntity updated = new AgentEntity();
+        updated.setIccid(dto.getIccid());
+        updated.setAgent(dto.getAgent());
+        updated.setMakeModel(dto.getMakeModel());
+        updated.setStatus(dto.getStatus());
+        updated.setDateOfEntry(old.getDateOfEntry());
+
+        return (agentRepo.save(updated));
+    }
 
 }
