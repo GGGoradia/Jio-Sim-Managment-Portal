@@ -49,13 +49,17 @@ const EditInventory = ({ item, close, refresh }) => {
 
         <div className="form-group">
           <label>Make / Model</label>
-          <input
+          <select
             value={form.makeModel}
             onChange={(e) =>
               setForm({ ...form, makeModel: e.target.value })
             }
-          />
+          >
+            <option value="">Select Make/Model</option>
+            <option value="TaisysPKIsim">Taisys PKI Sim</option>
+          </select>
         </div>
+
 
         <div className="form-group">
           <label>Status</label>

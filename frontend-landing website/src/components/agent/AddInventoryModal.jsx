@@ -47,12 +47,13 @@ const AddInventoryModal = ({ close, refresh }) => {
             <option value="DEACTIVATED">Deactivated</option>
           </select>
 
-          <input
-            name="makeModel"
+          <select name="makeModel"
             placeholder="Make / Model"
             onChange={handleChange}
-            required
-          />
+            required>
+              <option value="">Select Make/Model</option>
+              <option value="TaisysPKIsim">Taisys PKI sim</option>
+            </select>
 
           <div className="modal-actions">
             <button type="submit">Add</button>
