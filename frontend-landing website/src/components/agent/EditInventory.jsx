@@ -21,7 +21,7 @@ const EditInventory = ({ item, close, refresh }) => {
           iccid: form.iccid,
           makeModel: form.makeModel,
           status: form.status,
-          agentId:item.agentId,
+          agent:item.agent,
         }
       );
       refresh();

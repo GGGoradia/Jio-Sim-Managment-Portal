@@ -44,7 +44,7 @@ public class AgentServicesIMP implements AgentServices {
         updated.setAgent(dto.getAgent());
         updated.setMakeModel(dto.getMakeModel());
         updated.setStatus(dto.getStatus());
-        updated.setDateOfEntry(old.getDateOfEntry());
+        updated.setDateOfEntry(LocalDate.now());
 
         return (agentRepo.save(updated));
     }
