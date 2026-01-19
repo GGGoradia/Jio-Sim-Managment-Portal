@@ -27,6 +27,7 @@ const Login = () => {
     }
 
     function handleInput(e) {
+        setisloginerror(false);
         let name = e.target.name;
         let value = e.target.value;
         setUser({
@@ -87,6 +88,7 @@ const handleSubmit = async (e) => {
     }
 
   } catch (err) {
+    setisloginerror(true);
     toast.error("Invalid email or password");
   }
 };
@@ -135,7 +137,7 @@ const handleSubmit = async (e) => {
                 </h6>
 
                 <div className={`login-error ${!isloginerror?'display-none':''}`}>
-                Jio ID and Password do not match. Please re-enter and try again.
+                Jio ID or Password is wrong. Please re-enter and try again.
                 </div>
 
                 <p className='terms-of-services'>By continuing, you agree to our <Link>Terms of Service</Link> and <Link>Privacy & Legal Policy</Link></p>
