@@ -76,10 +76,6 @@ const EditInventory = ({ item, close, refresh }) => {
           <input value={item.agent} disabled />
         </div>
 
-        <div className="form-group">
-          <label>Date</label>
-          <input value={item.dateOfEntry} disabled />
-        </div>
 
         <div className="modal-actions">
           <button onClick={handleSave}>Save</button>
