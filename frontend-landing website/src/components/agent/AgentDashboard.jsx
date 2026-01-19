@@ -1,16 +1,23 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import AddInventoryModal from "./AddInventoryModal";
+import EditInventory from "./EditInventory";
 import "@/css/AgentDashboard.css";
+import { useSelector } from "react-redux";
 
 const AgentDashboard = () => {
   const [inventory, setInventory] = useState([]);
   const [filteredInventory, setFilteredInventory] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const [editMode, setEditMode] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
+
   const [search, setSearch] = useState("");
   const [activeFilter, setActiveFilter] = useState("ALL");
   const [showModal, setShowModal] = useState(false);
+
+  const agentId = useSelector((state) => state.auth.user.id);
 
   useEffect(() => {
     fetchInventory();
@@ -20,111 +27,97 @@ const AgentDashboard = () => {
     try {
       const res = await axios.get("http://localhost:8080/api/inventory/all");
       setInventory(res.data);
-      setFilteredInventory(res.data);
     } catch (err) {
-      console.error("Error fetching inventory", err);
+      console.error(err);
     } finally {
       setLoading(false);
     }
   };
 
-  const filterByStatus = (status) => {
-    setActiveFilter(status);
+  /* ================= FILTERING LOGIC ================= */
 
-    if (status === "ALL") {
-      setFilteredInventory(inventory);
-    } else {
-      setFilteredInventory(
-        inventory.filter((item) => item.status === status)
+  const baseInventory = useMemo(() => {
+    return editMode
+      ? inventory.filter((i) => i.agent === agentId)
+      : inventory;
+  }, [inventory, editMode, agentId]);
+
+  useEffect(() => {
+    let data = [...baseInventory];
+
+    if (activeFilter !== "ALL") {
+      data = data.filter((i) => i.status === activeFilter);
+    }
+
+    if (search.trim()) {
+      data = data.filter((i) =>
+        String(i.iccid).toLowerCase().includes(search.toLowerCase())
       );
     }
-  };
 
-  const handleSearch = (e) => {
-    const value = e.target.value;
-    setSearch(value);
+    setFilteredInventory(data);
+  }, [search, activeFilter, baseInventory]);
 
-    const filtered = inventory.filter((item) =>
-      item.iccid.toLowerCase().includes(value.toLowerCase())
-    );
+  /* ================= KPI LOGIC (FIXED) ================= */
 
-    setFilteredInventory(filtered);
-  };
+  const stats = useMemo(() => {
+    return {
+      total: baseInventory.length,
+      activated: baseInventory.filter((i) => i.status === "ACTIVATED").length,
+      ready: baseInventory.filter((i) => i.status === "READY_TO_DISPATCH").length,
+      deactivated: baseInventory.filter((i) => i.status === "DEACTIVATED").length,
+    };
+  }, [baseInventory]);
 
-  const stats = {
-    total: inventory.length,
-    activated: inventory.filter(i => i.status === "ACTIVATED").length,
-    ready: inventory.filter(i => i.status === "READY_TO_DISPATCH").length,
-    deactivated: inventory.filter(i => i.status === "DEACTIVATED").length,
-  };
-
-  if (loading) {
-    return (
-      <>
-        <div className="top-header">
-          <h2>Welcome Agent</h2>
-        </div>
-        <div className="inventory-dashboard">
-          <h3>Loading inventory...</h3>
-        </div>
-      </>
-    );
-  }
+  if (loading) return <h3>Loading inventory...</h3>;
 
   return (
     <>
-      {/* ================= TOP HEADER ================= */}
       <div className="top-header">
         <h2>Welcome Agent</h2>
       </div>
 
-      {/* ================= MAIN DASHBOARD ================= */}
       <div className="inventory-dashboard">
 
         {/* KPI CARDS */}
         <div className="stats-container">
-          <div className="stat-card" onClick={() => filterByStatus("ALL")}>
+          <div className="stat-card" onClick={() => setActiveFilter("ALL")}>
             <h3>Total SIMs</h3>
             <p>{stats.total}</p>
           </div>
-
-          <div className="stat-card" onClick={() => filterByStatus("ACTIVATED")}>
+          <div className="stat-card" onClick={() => setActiveFilter("ACTIVATED")}>
             <h3>Activated</h3>
             <p>{stats.activated}</p>
           </div>
-
-          <div
-            className="stat-card"
-            onClick={() => filterByStatus("READY_TO_DISPATCH")}
-          >
+          <div className="stat-card" onClick={() => setActiveFilter("READY_TO_DISPATCH")}>
             <h3>Ready to Dispatch</h3>
             <p>{stats.ready}</p>
           </div>
-
-          <div
-            className="stat-card"
-            onClick={() => filterByStatus("DEACTIVATED")}
-          >
+          <div className="stat-card" onClick={() => setActiveFilter("DEACTIVATED")}>
             <h3>Deactivated</h3>
             <p>{stats.deactivated}</p>
           </div>
         </div>
 
-        {/* SEARCH + ADD */}
+        {/* SEARCH + ACTIONS */}
         <div className="inventory-actions">
           <input
             type="text"
-            placeholder="Search by ICCID..."
+            placeholder="Search by ICCID"
             value={search}
-            onChange={handleSearch}
+            onChange={(e) => setSearch(e.target.value)}
           />
 
-          <button onClick={() => setShowModal(true)}>
-            + Add Inventory
-          </button>
+          <div className="action-buttons">
+            <button onClick={() => setEditMode(!editMode)}>
+              {editMode ? "Back" : "Edit Your Entries"}
+            </button>
+
+            <button onClick={() => setShowModal(true)}>+ Add Inventory</button>
+          </div>
         </div>
 
-        {/* INVENTORY TABLE */}
+        {/* TABLE */}
         <table className="inventory-table">
           <thead>
             <tr>
@@ -133,13 +126,14 @@ const AgentDashboard = () => {
               <th>Status</th>
               <th>Make / Model</th>
               <th>Date</th>
+              {editMode && <th>Edit</th>}
             </tr>
           </thead>
 
           <tbody>
             {filteredInventory.length === 0 ? (
               <tr>
-                <td colSpan="5">No records found</td>
+                <td colSpan={editMode ? 6 : 5}>No records found</td>
               </tr>
             ) : (
               filteredInventory.map((item) => (
@@ -149,16 +143,31 @@ const AgentDashboard = () => {
                   <td>{item.status}</td>
                   <td>{item.makeModel}</td>
                   <td>{item.dateOfEntry}</td>
+                  {editMode && (
+                    <td>
+                      <button
+                        className="edit-btn"
+                        onClick={() => setSelectedItem(item)}
+                      >
+                        Edit
+                      </button>
+                    </td>
+                  )}
                 </tr>
               ))
             )}
           </tbody>
         </table>
 
-        {/* ADD INVENTORY MODAL */}
+        {/* MODALS */}
         {showModal && (
-          <AddInventoryModal
-            close={() => setShowModal(false)}
+          <AddInventoryModal close={() => setShowModal(false)} refresh={fetchInventory} />
+        )}
+
+        {selectedItem && (
+          <EditInventory
+            item={selectedItem}
+            close={() => setSelectedItem(null)}
             refresh={fetchInventory}
           />
         )}
