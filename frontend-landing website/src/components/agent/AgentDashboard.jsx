@@ -5,6 +5,7 @@ import EditInventory from "./EditInventory";
 import "@/css/AgentDashboard.css";
 import { useSelector } from "react-redux";
 import { logOut } from "../features/auth/authSlice";
+import { Link } from 'react-router-dom';
 
 const AgentDashboard = () => {
   const [inventory, setInventory] = useState([]);
@@ -35,8 +36,6 @@ const AgentDashboard = () => {
     }
   };
 
-  /* ================= FILTERING LOGIC ================= */
-
   const baseInventory = useMemo(() => {
     return editMode
       ? inventory.filter((i) => i.agent === agentId)
@@ -59,8 +58,6 @@ const AgentDashboard = () => {
     setFilteredInventory(data);
   }, [search, activeFilter, baseInventory]);
 
-  /* ================= KPI LOGIC (FIXED) ================= */
-
   const stats = useMemo(() => {
     return {
       total: baseInventory.length,
@@ -81,8 +78,10 @@ const AgentDashboard = () => {
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-person-fill me-3" viewBox="0 0 16 16" >
               <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
             </svg>
-            
           </button>
+          <ul class="dropdown-menu">
+            <li><Link class="dropdown-item logout" to="/bussiness/login" onClick={() => { dispatch(logOut()) }}>Logout</Link></li>
+          </ul>
         </div>
       </div>
 
