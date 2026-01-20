@@ -4,6 +4,7 @@ const initialState = {
   user: null,
   token: null, // placeholder for future JWT
   isAuthenticated: false,
+  loginTime: null,
 };
 
 const authSlice = createSlice({

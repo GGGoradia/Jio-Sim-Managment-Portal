@@ -30,6 +30,7 @@ import LearnMore from './components/page/LearnMore.jsx';
 import SecureCommunication from './components/page/SecureCommunication.jsx';
 import PrivateRoute from "./components/privateroutes/PrivateRoute";
 import AgentDashboard from "./components/agent/AgentDashboard.jsx"
+import ProtectedRoute from './components/privateroutes/ProtectedRoute.jsx';
 
 const App = () => {
   const router = createBrowserRouter([
@@ -114,7 +115,7 @@ const App = () => {
       children : [
         {
           path:'dashboard',
-          element: <AgentDashboard/>,
+          element: <ProtectedRoute><AgentDashboard/></ProtectedRoute>,
         }  
       ]
     },
