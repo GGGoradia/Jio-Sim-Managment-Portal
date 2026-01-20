@@ -4,6 +4,7 @@ import AddInventoryModal from "./AddInventoryModal";
 import EditInventory from "./EditInventory";
 import "@/css/AgentDashboard.css";
 import { useSelector } from "react-redux";
+import { logOut } from "../features/auth/authSlice";
 
 const AgentDashboard = () => {
   const [inventory, setInventory] = useState([]);
@@ -75,6 +76,14 @@ const AgentDashboard = () => {
     <>
       <div className="top-header">
         <h2>Welcome Agent</h2>
+        <div>
+          <button class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-person-fill me-3" viewBox="0 0 16 16" >
+              <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+            </svg>
+            
+          </button>
+        </div>
       </div>
 
       <div className="inventory-dashboard">

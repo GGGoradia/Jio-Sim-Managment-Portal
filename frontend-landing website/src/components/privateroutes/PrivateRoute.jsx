@@ -14,7 +14,7 @@ const PrivateRoute = ({ allowedRoles }) => {
     allowedRoles &&
     (!user?.roles || !allowedRoles.some((r) => user.roles.includes(r)))
   ) {
-    return <Navigate to="/unauthorized" replace />;
+    return <Navigate to="/bussiness/login" replace />;
   }
 
   return <Outlet />;
