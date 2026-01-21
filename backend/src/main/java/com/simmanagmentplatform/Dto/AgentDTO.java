@@ -17,6 +17,8 @@ public class AgentDTO {
 
     private String makeModel;
 
+    private String comments;
+
     public AgentDTO() {}
 
     public String getIccid() {
@@ -49,5 +51,11 @@ public class AgentDTO {
 
     public void setMakeModel(String makeModel) {
         this.makeModel = makeModel;
+    }
+    public String getComments(){
+        return comments;
+    }
+    public void setComments(String comments){
+        this.comments=comments;
     }
 }

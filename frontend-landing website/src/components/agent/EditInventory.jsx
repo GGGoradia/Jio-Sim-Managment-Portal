@@ -10,6 +10,7 @@ const EditInventory = ({ item, close, refresh }) => {
     iccid: item.iccid,
     makeModel: item.makeModel,
     status: item.status,
+    comments:item.comments,
   });
 
   const getAllowedStatuses = (currentStatus) => {
@@ -52,6 +53,7 @@ const EditInventory = ({ item, close, refresh }) => {
           makeModel: item.makeModel,
           status: form.status,
           agent: item.agent,
+          comments: form.comments,
         }
       );
       refresh();
@@ -93,6 +95,18 @@ const EditInventory = ({ item, close, refresh }) => {
             ))}
           </select>
         </div>
+       <div className="form-group">
+        <label>Comments</label>
+        <textarea
+          rows="3"
+          placeholder="Enter comments here..."
+          value={form.comments || ""}
+          onChange={(e) =>
+            setForm({ ...form, comments: e.target.value })
+          }
+        />
+      </div>
+
 
         <div className="modal-actions">
           <button onClick={handleSave}>Save</button>

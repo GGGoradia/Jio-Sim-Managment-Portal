@@ -23,6 +23,7 @@ public class AgentServicesIMP implements AgentServices {
         agentEntity.setStatus(dto.getStatus());
         agentEntity.setMakeModel(dto.getMakeModel());
         agentEntity.setDateOfEntry(LocalDate.now());
+        agentEntity.setComments(dto.getComments());
 
         return agentRepo.save(agentEntity);
     }
@@ -45,6 +46,7 @@ public class AgentServicesIMP implements AgentServices {
         updated.setMakeModel(dto.getMakeModel());
         updated.setStatus(dto.getStatus());
         updated.setDateOfEntry(LocalDate.now());
+        updated.setComments(dto.getComments());
 
         return (agentRepo.save(updated));
     }

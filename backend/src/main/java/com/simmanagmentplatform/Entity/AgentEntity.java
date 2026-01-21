@@ -22,16 +22,20 @@ public class AgentEntity {
     @Column(name="dateofentry",nullable = false)
     private LocalDate dateOfEntry;
 
+    @Column(name="comments", length = 100)
+    private String comments;
+
     public AgentEntity(){
 
     }
     
-    public AgentEntity(String iccid,String agent,String status,String makeModel,LocalDate dateOfEntry){
+    public AgentEntity(String iccid,String agent,String status,String makeModel,LocalDate dateOfEntry,String comments){
         this.iccid = iccid;
         this.agent = agent;
         this.status = status;
         this.makeModel = makeModel;
         this.dateOfEntry = dateOfEntry;
+        this.comments=comments;
     }
 
     public String getIccid() {
@@ -72,5 +76,11 @@ public class AgentEntity {
 
     public void setDateOfEntry(LocalDate dateOfEntry) {
         this.dateOfEntry = dateOfEntry;
+    }
+    public String getComments(String comments){
+        return comments;
+    }
+    public void setComments(String comments){
+        this.comments=comments;
     }
 }
