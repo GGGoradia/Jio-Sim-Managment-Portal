@@ -8,7 +8,7 @@ const AddInventoryModal = ({ close, refresh }) => {
 
   const [form, setForm] = useState({
     iccid: "",
-    agent: agentid||"",
+    agent: agentid,
     status: "",
     makeModel: "",
   });
@@ -34,7 +34,7 @@ const AddInventoryModal = ({ close, refresh }) => {
 
         <form onSubmit={submitHandler}>
           <input name="iccid" placeholder="ICCID" onChange={handleChange} required />
-          <input name="agent" onChange={handleChange} value={agentid||""} required disabled />
+          {/* <input name="agent" onChange={handleChange} value={agentid||""} required disabled /> */}
 
           <select
             name="status"

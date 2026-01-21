@@ -19,7 +19,7 @@ const EditInventory = ({ item, close, refresh }) => {
         `http://localhost:8080/api/inventory/update/${originalIccid}`,
         {
           iccid: form.iccid,
-          makeModel: form.makeModel,
+          makeModel: item.makeModel,
           status: form.status,
           agent:item.agent,
         }
@@ -43,22 +43,21 @@ const EditInventory = ({ item, close, refresh }) => {
             value={form.iccid}
             onChange={(e) =>
               setForm({ ...form, iccid: e.target.value })
-            }
-          />
+            } disabled/>
         </div>
 
-        <div className="form-group">
+        {/* <div className="form-group">
           <label>Make / Model</label>
           <select
             value={form.makeModel}
             onChange={(e) =>
               setForm({ ...form, makeModel: e.target.value })
-            }
+            } disabled
           >
             <option value="">Select Make/Model</option>
-            <option value="TaisysPKIsim">Taisys PKI Sim</option>
+            <option value="TaisysPKIsim" >Taisys PKI Sim</option>
           </select>
-        </div>
+        </div> */}
 
 
         <div className="form-group">
@@ -73,11 +72,6 @@ const EditInventory = ({ item, close, refresh }) => {
             <option value="READY_TO_DISPATCH">Ready To Dispatch</option>
             <option value="DEACTIVATED">Deactivated</option>
           </select>
-        </div>
-
-        <div className="form-group">
-          <label>Agent</label>
-          <input value={item.agent} disabled />
         </div>
 
 
