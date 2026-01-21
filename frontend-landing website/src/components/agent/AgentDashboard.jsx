@@ -3,9 +3,9 @@ import axios from "axios";
 import AddInventoryModal from "./AddInventoryModal";
 import EditInventory from "./EditInventory";
 import "@/css/AgentDashboard.css";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { logOut } from "../features/auth/authSlice";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const AgentDashboard = () => {
   const [inventory, setInventory] = useState([]);
@@ -20,7 +20,9 @@ const AgentDashboard = () => {
   const [showModal, setShowModal] = useState(false);
 
   const agentId = useSelector((state) => state.auth.user.id);
+  const dispatch = useDispatch();
 
+  // ================== FETCH ==================
   useEffect(() => {
     fetchInventory();
   }, []);
@@ -36,12 +38,14 @@ const AgentDashboard = () => {
     }
   };
 
+  // ================== FILTER BASE ==================
   const baseInventory = useMemo(() => {
     return editMode
       ? inventory.filter((i) => i.agent === agentId)
       : inventory;
   }, [inventory, editMode, agentId]);
 
+  // ================== APPLY FILTERS ==================
   useEffect(() => {
     let data = [...baseInventory];
 
@@ -58,12 +62,29 @@ const AgentDashboard = () => {
     setFilteredInventory(data);
   }, [search, activeFilter, baseInventory]);
 
+  // ================== KPI STATS (FIXED) ==================
   const stats = useMemo(() => {
     return {
       total: baseInventory.length,
-      activated: baseInventory.filter((i) => i.status === "ACTIVATED").length,
-      ready: baseInventory.filter((i) => i.status === "READY_TO_DISPATCH").length,
-      deactivated: baseInventory.filter((i) => i.status === "DEACTIVATED").length,
+      simordered: baseInventory.filter(
+        (i) => i.status === "SIM_ORDERED"
+      ).length,
+      simreceived: baseInventory.filter(
+        (i) => i.status === "SIM_RECEIVED"
+      ).length,
+      simverified: baseInventory.filter(
+        (i) => i.status === "SIM_VERIFIED"
+      ).length,
+      ready: baseInventory.filter(
+        (i) => i.status === "READY_TO_DISPATCH"
+      ).length,
+      simdelivered: baseInventory.filter(
+        (i) => i.status === "DELIVERED"
+      ).length,
+      intransit: baseInventory.filter((i)=> i.status==="IN_TRANSIT").length,
+      deactivated: baseInventory.filter(
+        (i) => i.status === "DEACTIVATED"
+      ).length,
     };
   }, [baseInventory]);
 
@@ -71,20 +92,42 @@ const AgentDashboard = () => {
 
   return (
     <>
+      {/* ================== HEADER ================== */}
       <div className="top-header">
-        <h2>Welcome Agent</h2>
+        <h2>Welcome {agentId}</h2>
         <div>
-          <button class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-person-fill me-3" viewBox="0 0 16 16" >
+          <button
+            className="nav-link dropdown-toggle"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="currentColor"
+              className="bi bi-person-fill me-3"
+              viewBox="0 0 16 16"
+            >
               <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
             </svg>
           </button>
-          <ul class="dropdown-menu">
-            <li><Link class="dropdown-item logout" to="/bussiness/login" onClick={() => { dispatch(logOut()) }}>Logout</Link></li>
+          <ul className="dropdown-menu">
+            <li>
+              <Link
+                className="dropdown-item logout"
+                to="/bussiness/login"
+                onClick={() => dispatch(logOut())}
+              >
+                Logout
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
 
+      {/* ================== DASHBOARD ================== */}
       <div className="inventory-dashboard">
 
         {/* KPI CARDS */}
@@ -93,14 +136,37 @@ const AgentDashboard = () => {
             <h3>Total SIMs</h3>
             <p>{stats.total}</p>
           </div>
-          <div className="stat-card" onClick={() => setActiveFilter("ACTIVATED")}>
-            <h3>Activated</h3>
-            <p>{stats.activated}</p>
+
+          <div className="stat-card" onClick={() => setActiveFilter("SIM_ORDERED")}>
+            <h3>Sims Ordered</h3>
+            <p>{stats.simordered}</p>
           </div>
+
+          <div className="stat-card" onClick={() => setActiveFilter("SIM_RECEIVED")}>
+            <h3>Sims Received</h3>
+            <p>{stats.simreceived}</p>
+          </div>
+
+          <div className="stat-card" onClick={() => setActiveFilter("SIM_VERIFIED")}>
+            <h3>Sims Verified</h3>
+            <p>{stats.simverified}</p>
+          </div>
+
           <div className="stat-card" onClick={() => setActiveFilter("READY_TO_DISPATCH")}>
             <h3>Ready to Dispatch</h3>
             <p>{stats.ready}</p>
           </div>
+
+          <div className="stat-card" onClick={() => setActiveFilter("IN_TRANSIT")}>
+            <h3>Sims In Transit</h3>
+            <p>{stats.intransit}</p>
+          </div>
+
+          <div className="stat-card" onClick={() => setActiveFilter("DELIVERED")}>
+            <h3>Sims Delivered</h3>
+            <p>{stats.simdelivered}</p>
+          </div>
+
           <div className="stat-card" onClick={() => setActiveFilter("DEACTIVATED")}>
             <h3>Deactivated</h3>
             <p>{stats.deactivated}</p>
@@ -148,7 +214,7 @@ const AgentDashboard = () => {
                 <tr key={item.iccid}>
                   <td>{item.iccid}</td>
                   <td>{item.agent}</td>
-                  <td>{item.status}</td>
+                  <td>{item.status.replaceAll("_", " ")}</td>
                   <td>{item.makeModel}</td>
                   <td>{item.dateOfEntry}</td>
                   {editMode && (
@@ -169,7 +235,10 @@ const AgentDashboard = () => {
 
         {/* MODALS */}
         {showModal && (
-          <AddInventoryModal close={() => setShowModal(false)} refresh={fetchInventory} />
+          <AddInventoryModal
+            close={() => setShowModal(false)}
+            refresh={fetchInventory}
+          />
         )}
 
         {selectedItem && (

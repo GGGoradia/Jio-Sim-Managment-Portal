@@ -42,9 +42,7 @@ const AddInventoryModal = ({ close, refresh }) => {
             required
           >
             <option value="">Select Status</option>
-            <option value="READY_TO_DISPATCH">Ready to Dispatch</option>
-            <option value="ACTIVATED">Activated</option>
-            <option value="DEACTIVATED">Deactivated</option>
+            <option value="SIM_ORDERED">Sim Ordered</option>
           </select>
 
           <select name="makeModel"

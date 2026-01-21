@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 
 const EditInventory = ({ item, close, refresh }) => {
   const agentId = useSelector((state) => state.auth.user.id);
-
   const originalIccid = item.iccid;
 
   const [form, setForm] = useState({
@@ -12,6 +11,40 @@ const EditInventory = ({ item, close, refresh }) => {
     makeModel: item.makeModel,
     status: item.status,
   });
+
+  // ================= STATUS TRANSITION LOGIC =================
+  const getAllowedStatuses = (currentStatus) => {
+    if (currentStatus === "SIM_ORDERED") {
+      return ["SIM_ORDERED", "SIM_RECEIVED"];
+    }
+
+    if (currentStatus === "SIM_RECEIVED") {
+      return ["SIM_RECEIVED", "SIM_VERIFIED"];
+    }
+
+    if (currentStatus === "SIM_VERIFIED") {
+      return ["SIM_VERIFIED", "READY_TO_DISPATCH"];
+    }
+
+    if (currentStatus === "READY_TO_DISPATCH") {
+      return ["READY_TO_DISPATCH", "IN_TRANSIT"];
+    }
+
+    if (currentStatus === "IN_TRANSIT"){
+      return ["IN_TRANSIT","READY_TO_DISPATCH","DEACTIVATED","DELIVERED"]
+    }
+
+    if (currentStatus === "DELIVERED") {
+      return ["DELIVERED", "DEACTIVATED"];
+    }
+
+    if (currentStatus === "DEACTIVATED") {
+      return ["DEACTIVATED"];
+    }
+
+    return [];
+  };
+  // ============================================================
 
   const handleSave = async () => {
     try {
@@ -21,7 +54,7 @@ const EditInventory = ({ item, close, refresh }) => {
           iccid: form.iccid,
           makeModel: item.makeModel,
           status: form.status,
-          agent:item.agent,
+          agent: item.agent,
         }
       );
       refresh();
@@ -43,22 +76,10 @@ const EditInventory = ({ item, close, refresh }) => {
             value={form.iccid}
             onChange={(e) =>
               setForm({ ...form, iccid: e.target.value })
-            } disabled/>
+            }
+            disabled
+          />
         </div>
-
-        {/* <div className="form-group">
-          <label>Make / Model</label>
-          <select
-            value={form.makeModel}
-            onChange={(e) =>
-              setForm({ ...form, makeModel: e.target.value })
-            } disabled
-          >
-            <option value="">Select Make/Model</option>
-            <option value="TaisysPKIsim" >Taisys PKI Sim</option>
-          </select>
-        </div> */}
-
 
         <div className="form-group">
           <label>Status</label>
@@ -68,12 +89,13 @@ const EditInventory = ({ item, close, refresh }) => {
               setForm({ ...form, status: e.target.value })
             }
           >
-            <option value="ACTIVATED">Activated</option>
-            <option value="READY_TO_DISPATCH">Ready To Dispatch</option>
-            <option value="DEACTIVATED">Deactivated</option>
+            {getAllowedStatuses(form.status).map((status) => (
+              <option key={status} value={status}>
+                {status.replaceAll("_", " ")}
+              </option>
+            ))}
           </select>
         </div>
-
 
         <div className="modal-actions">
           <button onClick={handleSave}>Save</button>
