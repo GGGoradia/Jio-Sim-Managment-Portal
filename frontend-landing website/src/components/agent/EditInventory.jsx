@@ -12,7 +12,6 @@ const EditInventory = ({ item, close, refresh }) => {
     status: item.status,
   });
 
-  // ================= STATUS TRANSITION LOGIC =================
   const getAllowedStatuses = (currentStatus) => {
     if (currentStatus === "SIM_ORDERED") {
       return ["SIM_ORDERED", "SIM_RECEIVED"];
@@ -44,8 +43,6 @@ const EditInventory = ({ item, close, refresh }) => {
 
     return [];
   };
-  // ============================================================
-
   const handleSave = async () => {
     try {
       await axios.put(
