@@ -200,6 +200,7 @@ const AgentDashboard = () => {
               <th>Status</th>
               <th>Make / Model</th>
               <th>Date</th>
+              <th>Comments</th>
               {editMode && <th>Edit</th>}
             </tr>
           </thead>
@@ -217,6 +218,7 @@ const AgentDashboard = () => {
                   <td>{item.status.replaceAll("_", " ")}</td>
                   <td>{item.makeModel}</td>
                   <td>{item.dateOfEntry}</td>
+                  <td>{item.comments}</td>
                   {editMode && (
                     <td>
                       <button
@@ -252,5 +254,4 @@ const AgentDashboard = () => {
     </>
   );
 };
-
 export default AgentDashboard;

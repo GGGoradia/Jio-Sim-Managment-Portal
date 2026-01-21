@@ -77,7 +77,7 @@ public class AgentEntity {
     public void setDateOfEntry(LocalDate dateOfEntry) {
         this.dateOfEntry = dateOfEntry;
     }
-    public String getComments(String comments){
+    public String getComments(){
         return comments;
     }
     public void setComments(String comments){
