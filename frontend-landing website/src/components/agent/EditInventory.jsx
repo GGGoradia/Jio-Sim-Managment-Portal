@@ -98,6 +98,7 @@ const EditInventory = ({ item, close, refresh }) => {
        <div className="form-group">
         <label>Comments</label>
         <textarea
+          maxLength={100}
           rows="3"
           placeholder="Enter comments here..."
           value={form.comments || ""}
