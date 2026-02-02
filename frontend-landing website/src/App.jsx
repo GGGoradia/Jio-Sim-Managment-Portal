@@ -31,6 +31,8 @@ import SecureCommunication from './components/page/SecureCommunication.jsx';
 import PrivateRoute from "./components/privateroutes/PrivateRoute";
 import AgentDashboard from "./components/agent/AgentDashboard.jsx"
 import ProtectedRoute from './components/privateroutes/ProtectedRoute.jsx';
+import LoginAdmin from "./components/admin/LoginAdmin.jsx";
+
 
 const App = () => {
   const router = createBrowserRouter([
@@ -80,6 +82,10 @@ const App = () => {
     {
       path: "/bussiness/login",
       element: <><Navbar/><Login/><Footer/></>,
+    },
+    {
+      path: "/bussiness/login/admin",
+      element: <><Navbar/><LoginAdmin/><Footer/></>,
     },
     {
       path: '/user',
