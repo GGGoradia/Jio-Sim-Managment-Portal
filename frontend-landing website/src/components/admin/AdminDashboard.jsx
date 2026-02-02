@@ -8,6 +8,7 @@ import UserList from './UserList';
 import SimList from './SimList';
 import OrderList from './OrderList';
 import ProfileList from './ProfileList';
+import LoginAdmin from './LoginAdmin';
 // import EkycList from './EkycList';
 
 const AdminDashboard = () => {
@@ -63,6 +64,7 @@ const AdminDashboard = () => {
               </span>
               <ul className={`side-nav-content-details ${userCollapse ? 'collappse' : ''}`}>
                 <li className={`${content === 1 ? 'content-selected' : ''}`} onClick={() => { setContent(1) }}>Show All Users</li>
+                <li className={`${content === 20 ? 'content-selected' : ''}`} onClick={() => { setContent(20) }}>Access</li>
               </ul>
             </li>
 
@@ -132,6 +134,8 @@ const AdminDashboard = () => {
           {content === 12 ? <EkycList contentType={content} /> : <></>}
           {content === 13 ? <EkycList contentType={content} /> : <></>}
           {content === 14 ? <EkycList contentType={content} /> : <></>} */}
+          {content === 20 ? <LoginAdmin contentType={content}/> : <></>}
+          
 
 
 
