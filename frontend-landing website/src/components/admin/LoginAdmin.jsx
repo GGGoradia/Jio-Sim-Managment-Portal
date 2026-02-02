@@ -66,7 +66,7 @@ const handleSubmit = async (e) => {
 
       {showRegister && (
         <div className="login-card">
-          <h1>Register Admin</h1>
+          <h1>Register </h1>
 
           {error && <p className="error-text">{error}</p>}
 
