@@ -17,18 +17,40 @@ const LoginAdmin = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    if (form.password !== form.confirmPassword) {
-      setError("Passwords do not match");
-      return;
-    }
+  if (form.password !== form.confirmPassword) {
+    setError("Passwords do not match");
+    return;
+  }
 
-    setError("");
-    console.log("Register payload:", form);
-    // API call later
-  };
+// //   try {
+// //     const response = await fetch("", {
+// //       method: "POST",
+// //       headers: {
+// //         "Content-Type": "application/json",
+// //       },
+// //       body: JSON.stringify({
+// //         username: form.username,
+// //         email: form.email,
+// //         password: form.password,
+// //         role: form.role,
+// //       }),
+// //     });
+
+// //     if (!response.ok) {
+// //       const data = await response.json();
+// //       throw new Error(data.message || "Registration failed");
+// //     }
+
+// //     alert("Registration successful");
+// //     // navigate("/bussiness/login");  // optional
+//   } catch (err) {
+//     setError(err.message);
+//   }
+};
+
 
   return (
     <div className="business-login-page">
@@ -82,8 +104,8 @@ const LoginAdmin = () => {
             <div className="input-group">
               <label>Role</label>
               <select name="role" onChange={handleChange}>
-                <option value="USER">Admin</option>
-                <option value="AGENT">Super Admin</option>
+                <option value="USER">User</option>
+                <option value="AGENT">Agent</option>
               </select>
             </div>
 
