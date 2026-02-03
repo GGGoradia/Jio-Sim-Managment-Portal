@@ -52,8 +52,8 @@ const Navbartop = () => {
 
             <FaHeart className="outer-search-icon" />
             <MdShowChart className="outer-search-icon" />
-
-            <Dropdown isOpen={userOpen} toggle={toggleUser}>
+            <FaUserCircle id='user-img' className="outer-search-icon" onClick={()=>navigate('/bussiness/login')} style={{cursor:"pointer"}}/>
+            {/* <Dropdown isOpen={userOpen} toggle={toggleUser}>
               <DropdownToggle tag="span" className="outer-search-icon">
                 <FaUserCircle id="user-img" />
               </DropdownToggle>
@@ -77,7 +77,7 @@ const Navbartop = () => {
                   User Login
                 </DropdownItem>
               </DropdownMenu>
-            </Dropdown>
+            </Dropdown> */}
           </Navbar>
         </Collapse>
       </Navbar>

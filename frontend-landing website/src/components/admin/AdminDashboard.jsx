@@ -8,7 +8,7 @@ import UserList from './UserList';
 import SimList from './SimList';
 import OrderList from './OrderList';
 import ProfileList from './ProfileList';
-import LoginAdmin from './LoginAdmin';
+import AdminUserRegistration from './AdminUserRegistration';
 // import EkycList from './EkycList';
 
 const AdminDashboard = () => {
@@ -157,7 +157,7 @@ const AdminDashboard = () => {
           {[2, 3, 4, 5].includes(content) && <SimList contentType={content} />}
           {[6, 7, 8, 9].includes(content) && <OrderList contentType={content} />}
           {content === 10 && <ProfileList contentType={content} />}
-          {content === 20 && <LoginAdmin contentType={content} />}
+          {content === 20 && <AdminUserRegistration contentType={content} />}
         </div>
 
       </div>

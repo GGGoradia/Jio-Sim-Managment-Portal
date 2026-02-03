@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "@/css/Navbar.css";
-import "@/css/LoginAdmin.css";
+import "@/css/AdminUserRegistration.css";
 
-const LoginAdmin = () => {
+const AdminUserRegistration = () => {
   const [showRegister, setShowRegister] = useState(false);
   const [form, setForm] = useState({
     username: "",
@@ -130,4 +130,4 @@ const handleSubmit = async (e) => {
   );
 };
 
-export default LoginAdmin;
+export default AdminUserRegistration;
