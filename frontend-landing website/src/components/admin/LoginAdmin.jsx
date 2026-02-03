@@ -9,7 +9,7 @@ const LoginAdmin = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    role: "USER",
+    role: "ADMIN",
   });
   const [error, setError] = useState("");
 
@@ -57,16 +57,27 @@ const handleSubmit = async (e) => {
 
       {!showRegister && (
         <div className="admin-access-container">
-          <h2>Admin Registration</h2>
+          <h2>User Registration</h2>
           <button className="access-btn" onClick={() => setShowRegister(true)}>
             Access
           </button>
         </div>
       )}
 
-      {showRegister && (
-        <div className="login-card">
-          <h1>Register </h1>
+    {showRegister && (
+  <div className="login-card">
+    <button
+      className="close-btn"
+      onClick={() => {
+        setShowRegister(false);
+        setError("");
+      }}
+      aria-label="Close"
+    >
+      ✕
+    </button>
+
+    <h1>Register</h1>
 
           {error && <p className="error-text">{error}</p>}
 
@@ -109,8 +120,8 @@ const handleSubmit = async (e) => {
               </select>
             </div>
 
-            <button className="login-btn" type="submit">
-              Register
+            <button className="register-btn" type="submit">
+              Register User
             </button>
           </form>
         </div>
