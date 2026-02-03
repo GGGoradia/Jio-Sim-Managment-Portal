@@ -77,7 +77,7 @@ const handleSubmit = async (e) => {
       ✕
     </button>
 
-    <h1>Register</h1>
+    <h1>Register User</h1>
 
           {error && <p className="error-text">{error}</p>}
 
@@ -121,7 +121,7 @@ const handleSubmit = async (e) => {
             </div>
 
             <button className="register-btn" type="submit">
-              Register User
+              Register 
             </button>
           </form>
         </div>

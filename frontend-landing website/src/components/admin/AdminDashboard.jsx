@@ -70,7 +70,7 @@ const AdminDashboard = () => {
                   className={`${content === 20 ? 'content-selected' : ''}`}
                   onClick={() => { setContent(20) }}
                 >
-                  Add Users
+                  User Registration
                 </li>
               </ul>
             </li>
