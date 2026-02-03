@@ -15,13 +15,13 @@ const AdminDashboard = () => {
 
   // var userName = useSelector(((state)=>state.auth.user.usersName));
 
-  const [adduserCollapse, setadduserCollapse] = useState(false);
+  const [adduserCollapse, setadduserCollapse] = useState(true);
   const [userCollapse, setUserCollapse] = useState(true);
   const [simCollapse, setSimCollapse] = useState(true);
   const [ordersCollapse, setOrdersCollapse] = useState(true);
   const [profileCollapse, setProfileCollapse] = useState(true);
   // const [ekycCollapse, setEkycsCollapse] = useState(true);
-  const [content, setContent] = useState(1);
+  const [content, setContent] = useState(20);
   const [user, setUser] = useState({});
 
   useEffect(() => {
