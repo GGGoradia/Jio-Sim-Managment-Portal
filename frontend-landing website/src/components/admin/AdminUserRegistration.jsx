@@ -55,18 +55,20 @@ const handleSubmit = async (e) => {
   return (
     <div className="business-login-page">
 
-      {!showRegister && (
+      {/* {!showRegister && (
         <div className="admin-access-container">
           <h2>User Registration</h2>
           <button className="access-btn" onClick={() => setShowRegister(true)}>
             Access
           </button>
         </div>
-      )}
+      )} */}
 
-    {showRegister && (
+    {/* {showRegister && ( */}
+    
   <div className="login-card">
-    <button
+
+    {/* <button
       className="close-btn"
       onClick={() => {
         setShowRegister(false);
@@ -75,7 +77,7 @@ const handleSubmit = async (e) => {
       aria-label="Close"
     >
       ✕
-    </button>
+    </button> */}
 
     <h1>Register User</h1>
 
@@ -125,7 +127,7 @@ const handleSubmit = async (e) => {
             </button>
           </form>
         </div>
-      )}
+      {/* )} */}
     </div>
   );
 };
