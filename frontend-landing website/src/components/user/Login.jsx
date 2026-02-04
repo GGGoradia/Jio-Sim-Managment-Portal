@@ -54,44 +54,74 @@ const Login = () => {
           setisbuttonDisabled(true);
     },[user.email,user.password]);
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  try {
-    const response = await axios.post(
-      "http://localhost:8080/api/auth/login",
-      user,
-      { headers: { "Content-Type": "application/json" } }
-    );
-
-    const data = response.data;
-
-    // Store in Redux
-    dispatch(setCredentials({
-      user: {
-        id: data.userId,
-        name: data.name,
-        roles: data.roles
-      },
-      token: null // JWT later
-    }));
-
-    toast.success("Login successful");
-
-    // Role-based navigation
-    if (data.roles.includes("ADMIN")) {
-      navigate("/admin/dashboard");
-    } else if (data.roles.includes("AGENT")) {
-      navigate("/agent/dashboard");
-    } else {
-      navigate("/user/dashboard");
-    }
-
-  } catch (err) {
-    setisloginerror(true);
-    toast.error("Invalid email or password");
-  }
-};
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+      
+        const { email, password } = user;
+      
+        // Dummy login logic
+        if (
+          (email === "admin@gmail.com" && password === "admin123") ||
+          (email === "agent@gmail.com" && password === "agent123") ||
+          (email === "user@gmail.com" && password === "user123")
+        ) {
+          let role = "USER";
+      
+          if (email === "admin@gmail.com") role = "ADMIN";
+          else if (email === "agent@gmail.com") role = "AGENT";
+      
+          dispatch(setCredentials({
+            user: {
+              id: 1,
+              name: role.toLowerCase(),
+              roles: [role]
+            },
+            token: null
+          }));
+      
+          toast.success("Login successful");
+      
+          if (role === "ADMIN") navigate("/admin/dashboard");
+          else if (role === "AGENT") navigate("/agent/dashboard");
+          else navigate("/user/dashboard");
+      
+          return;
+        }
+      
+        try {
+          const response = await axios.post(
+            "http://localhost:8080/api/auth/login",
+            user,
+            { headers: { "Content-Type": "application/json" } }
+          );
+      
+          const data = response.data;
+      
+          dispatch(setCredentials({
+            user: {
+              id: data.userId,
+              name: data.name,
+              roles: data.roles
+            },
+            token: null
+          }));
+      
+          toast.success("Login successful");
+      
+          if (data.roles.includes("ADMIN")) {
+            navigate("/admin/dashboard");
+          } else if (data.roles.includes("AGENT")) {
+            navigate("/agent/dashboard");
+          } else {
+            navigate("/user/dashboard");
+          }
+      
+        } catch (err) {
+          setisloginerror(true);
+          toast.error("Invalid email or password");
+        }
+      };
+      
 
     return (
         <div className='login-container'>
