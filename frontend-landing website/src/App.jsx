@@ -31,7 +31,7 @@ import SecureCommunication from './components/page/SecureCommunication.jsx';
 import PrivateRoute from "./components/privateroutes/PrivateRoute";
 import AgentDashboard from "./components/agent/AgentDashboard.jsx"
 import ProtectedRoute from './components/privateroutes/ProtectedRoute.jsx';
-import LoginAdmin from "./components/admin/LoginAdmin.jsx";
+import AdminUserRegistration from "./components/admin/AdminUserRegistration.jsx";
 
 
 const App = () => {
@@ -85,7 +85,7 @@ const App = () => {
     },
     {
       path: "/bussiness/login/admin",
-      element: <><Navbar/><LoginAdmin/><Footer/></>,
+      element: <><Navbar/><AdminUserRegistration/><Footer/></>,
     },
     {
       path: '/user',
