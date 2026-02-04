@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import "@/css/AdminDashboard.css";
 import { FaAngleDown } from "react-icons/fa6";
-import { Link } from 'react-router-dom';
+import { json, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import UserList from './UserList';
 import SimList from './SimList';
@@ -23,15 +23,15 @@ const AdminDashboard = () => {
   // const [ekycCollapse, setEkycsCollapse] = useState(true);
   const [content, setContent] = useState(20);
   const [user, setUser] = useState({});
-
+  const adminId=useSelector((state)=>state.auth.user.name)
   useEffect(() => {
-    setUser(JSON.parse(localStorage.getItem('user')));
-  }, []);
+    localStorage.setItem('user',JSON.stringify(adminId));
+  }, [adminId]);
 
   return (
     <div className='admin-dashboard'>
       <div className="admin-nav-bar">
-        <h2>Welcome Admin</h2>
+        <h2>Welcome {adminId}</h2>
         <div className="nav-item dropdown logdedin">
           <button className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-person-fill me-3" viewBox="0 0 16 16">
