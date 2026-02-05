@@ -85,17 +85,28 @@ const Signin = () => {
         if (Number(OTP) === generateOtp) {
             try {
                 let response;
-                if (typeOfUser === 1) {
-                    response = await axios.post("http://localhost:2705/api/user/signup",newUser)
-                } else if (typeOfUser === 2) {
-                    response = await axios.get(`http://localhost:2705/api/user/emailId`, {
-                        params: { emailId: existingUser.emailId },
-                    });
-                } else if (typeOfUser === 3) {
-                    response = await axios.post("http://localhost:2705/api/user/signup",newUser)
-                }
+                // if (typeOfUser === 1) {
+                //     response = await axios.post("http://localhost:2705/api/user/signup",newUser)
+                // } else if (typeOfUser === 2) {
+                //     response = await axios.get(`http://localhost:2705/api/user/emailId`, {
+                //         params: { emailId: existingUser.emailId },
+                //     });
+                // } else if (typeOfUser === 3) {
+                //     response = await axios.post("http://localhost:2705/api/user/signup",newUser)
+                // }
                 
+                response = {
+                    status: 200,
+                    data: {
+                        data:
+                            typeOfUser === 1 || typeOfUser === 3
+                                ? newUser
+                                : existingUser,
+                    },
+                };
+                        
                 console.log(response);
+
                 if (response.status === 200 || response.status === 201){
                     if(typeOfUser ===1 || typeOfUser===3)
                     {
