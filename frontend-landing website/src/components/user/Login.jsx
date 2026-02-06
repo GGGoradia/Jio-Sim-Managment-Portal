@@ -90,12 +90,11 @@ const Login = () => {
     try {
       const response = await axios.post(
         "http://10.145.52.5:5003/api/pkisim2.1/users/validate",
-        null,
         {
-          params: {
-            username: email,
-            password: password
-          },
+          username: email,
+          password: password
+        },
+        {
           headers:{
             "Content-Type":"application/json"
           }
