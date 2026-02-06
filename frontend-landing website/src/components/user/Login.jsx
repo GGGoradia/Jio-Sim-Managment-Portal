@@ -137,7 +137,6 @@ const Login = () => {
     }
   };
 
-  /* ---------------- UI ---------------- */
 
   return (
     <div className="login-container">

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "@/css/Navbar.css";
 import "@/css/AdminUserRegistration.css";
+import axios from "axios";
 
 const AdminUserRegistration = () => {
   const [showRegister, setShowRegister] = useState(false);
@@ -25,30 +26,33 @@ const handleSubmit = async (e) => {
     return;
   }
 
-// //   try {
-// //     const response = await fetch("", {
-// //       method: "POST",
-// //       headers: {
-// //         "Content-Type": "application/json",
-// //       },
-// //       body: JSON.stringify({
-// //         username: form.username,
-// //         email: form.email,
-// //         password: form.password,
-// //         role: form.role,
-// //       }),
-// //     });
-
-// //     if (!response.ok) {
-// //       const data = await response.json();
-// //       throw new Error(data.message || "Registration failed");
-// //     }
-
-// //     alert("Registration successful");
-// //     // navigate("/bussiness/login");  // optional
-//   } catch (err) {
-//     setError(err.message);
-//   }
+  try {
+    const response = await axios.post(
+      "http://10.145.52.5:5003/api/pkisim2.1/users/insert", // your API URL here
+      {
+        username: form.username,
+        email: form.email,
+        password: form.password,
+        role: form.role === "USER" ? "ENDUSER" : form.role,
+        account_status: "ACTIVE"
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  
+    alert("Registration successful");
+  } catch (err) {
+    const message =
+      err.response?.data?.message ||
+      err.message ||
+      "Registration failed";
+  
+    setError(message);
+  }
+  
 };
 
 
@@ -117,7 +121,7 @@ const handleSubmit = async (e) => {
             <div className="input-group">
               <label>Role</label>
               <select name="role" onChange={handleChange}>
-                <option value="USER">User</option>
+                <option value="ENDUSER">User</option>
                 <option value="AGENT">Agent</option>
               </select>
             </div>
