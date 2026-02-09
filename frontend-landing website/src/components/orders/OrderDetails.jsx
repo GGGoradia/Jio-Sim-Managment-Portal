@@ -5,6 +5,7 @@ import { Country, State, City } from 'country-state-city';
 import axios from 'axios';
 import PhoneInput from 'react-phone-input-2';
 import { useNavigate } from 'react-router-dom';
+import OtpInput from "otp-input-react";
 
 const OrderDetails = () => {
     const navigate = useNavigate();
@@ -39,13 +40,18 @@ const OrderDetails = () => {
         amount: 2775,
         razorpayId: ''
     });
-
+    const [OTP, setOTP] = useState("");
+    const [generatedOtp, setGeneratedOtp] = useState(0);
+    const [otpBox, setOtpBox] = useState(false);
+    const [otpError, setOtpError] = useState(false);
+    
+    
     const [countries, setCountries] = useState([]);
     const [states, setStates] = useState([]);
     const [cities, setCities] = useState([]);
     const [diffaddress, setDiffaddress] = useState(false);
     const [phoneLabel, setPhoneLabel] = useState(false);
-
+    
     useEffect(() => {
         setUser(JSON.parse(localStorage.getItem('pki-users')));
     }, [])
@@ -73,6 +79,13 @@ const OrderDetails = () => {
             setCities([]);
         }
     }, [profiledetails.address.state, countries, states]);
+    
+    
+    const generateOtpCode = () => {
+        const newOtp = Math.floor(100000 + Math.random() * 900000);
+        setGeneratedOtp(newOtp);
+        alert(`Dummy OTP is ${newOtp}`);
+      };
 
     const handleInput = (e) => {
         const { name, value } = e.target;
@@ -156,92 +169,111 @@ const OrderDetails = () => {
             }));
         }
     };
-
-    const handelsubmit = async (e) => {
+    const handelsubmit = (e) => {
         e.preventDefault();
-        const amount = 2775;
-        try {
-
-            const response = await axios.post(
-                'http://localhost:2705/api/order/create_order',
-                { amount: orderDetails.amount },
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                }
-            );
-            // Handle success
-            console.log(response.data);
-            if (response.data.status == "created") {
-                console.log("next");
-                let options = {
-                    "key": "rzp_test_VtabkGRGa9SEhd",
-                    "amount": "2775",
-                    "currency": "INR",
-                    "name": "JIO PKI SIM",
-                    "description": "Test Transaction",
-                    "image": "https://example.com/your_logo",
-                    "order_id": response.data.id,
-                    "handler":async function (response) {
-                        console.log(response);
-                        console.log(response.razorpay_payment_id);
-                        console.log(response.razorpay_order_id);
-                        console.log(response.razorpay_signature);
-
-                        const payment = {
-                            payment_id: response.razorpay_payment_id, order_id: response.razorpay_order_id,
-                            razorpay_signature: response.razorpay_signature
-                        };
-
-                        localStorage.setItem("payment", JSON.stringify(payment));
-
-                        const response_profile = await axios.post(`http://localhost:2705/api/user/profile/user/${user.id}/create`,profiledetails)
-
-                        console.log(response_profile);
-                        localStorage.setItem("profile", JSON.stringify(response_profile.data.data));
-
-                        orderDetails.razorpayId=response.razorpay_order_id;
-                        const response_order = await axios.post(`http://localhost:2705/api/order/create_order/profile/${response_profile.data.data.id}`,orderDetails);
-
-                        console.log(response_order);
-                        localStorage.setItem("orders", JSON.stringify(response_order.data.data));
-                        navigate('/payment_sucessfull');
-                    },
-                    "prefill": {
-                        "name": user.fullName,
-                        "email": user.emailId,
-                        "contact": orderDetails.phoneNumber
-                    },
-                    "notes": {
-                        "address": "JIO"
-                    },
-                    "theme": {
-                        "color": "#3399cc"
-                    }
-                };
-                const rzp1 = new Razorpay(options);
-                rzp1.open();
-                rzp1.on('payment.failed', function (response) {
-                    console.log(response.error.code);
-                    console.log(response.error.description);
-                    console.log(response.error.source);
-                    console.log(response.error.step);
-                    console.log(response.error.reason);
-                    console.log(response.error.metadata.order_id);
-                    console.log(response.error.metadata.payment_id);
-                    alert("oops payment failed");
-                });
-
-            }
-        } catch (error) {
-            // Handle error
-            console.error("Error creating order:", error);
+      
+        // Open OTP box
+        generateOtpCode();
+        setOtpBox(true);
+      };
+    
+      const handleVerifyOtp = () => {
+        if (Number(OTP) === generatedOtp) {
+          setOtpError(false);
+          setOtpBox(false);
+      
+          // Move to plan selection
+          navigate("/choose-plan");
+        } else {
+          setOtpError(true);
         }
-       console.log(profiledetails);
-       console.log(orderDetails);
+      };
+      
+    // const handelsubmit = async (e) => {
+    //     e.preventDefault();
+    //     const amount = 2775;
+    //     try {
 
-    };
+    //         const response = await axios.post(
+    //             'http://localhost:2705/api/order/create_order',
+    //             { amount: orderDetails.amount },
+    //             {
+    //                 headers: {
+    //                     'Content-Type': 'application/json',
+    //                 },
+    //             }
+    //         );
+    //         // Handle success
+    //         console.log(response.data);
+    //         if (response.data.status == "created") {
+    //             console.log("next");
+    //             let options = {
+    //                 "key": "rzp_test_VtabkGRGa9SEhd",
+    //                 "amount": "2775",
+    //                 "currency": "INR",
+    //                 "name": "JIO PKI SIM",
+    //                 "description": "Test Transaction",
+    //                 "image": "https://example.com/your_logo",
+    //                 "order_id": response.data.id,
+    //                 "handler":async function (response) {
+    //                     console.log(response);
+    //                     console.log(response.razorpay_payment_id);
+    //                     console.log(response.razorpay_order_id);
+    //                     console.log(response.razorpay_signature);
+
+    //                     const payment = {
+    //                         payment_id: response.razorpay_payment_id, order_id: response.razorpay_order_id,
+    //                         razorpay_signature: response.razorpay_signature
+    //                     };
+
+    //                     localStorage.setItem("payment", JSON.stringify(payment));
+
+    //                     const response_profile = await axios.post(`http://localhost:2705/api/user/profile/user/${user.id}/create`,profiledetails)
+
+    //                     console.log(response_profile);
+    //                     localStorage.setItem("profile", JSON.stringify(response_profile.data.data));
+
+    //                     orderDetails.razorpayId=response.razorpay_order_id;
+    //                     const response_order = await axios.post(`http://localhost:2705/api/order/create_order/profile/${response_profile.data.data.id}`,orderDetails);
+
+    //                     console.log(response_order);
+    //                     localStorage.setItem("orders", JSON.stringify(response_order.data.data));
+    //                     navigate('/payment_sucessfull');
+    //                 },
+    //                 "prefill": {
+    //                     "name": user.fullName,
+    //                     "email": user.emailId,
+    //                     "contact": orderDetails.phoneNumber
+    //                 },
+    //                 "notes": {
+    //                     "address": "JIO"
+    //                 },
+    //                 "theme": {
+    //                     "color": "#3399cc"
+    //                 }
+    //             };
+    //             const rzp1 = new Razorpay(options);
+    //             rzp1.open();
+    //             rzp1.on('payment.failed', function (response) {
+    //                 console.log(response.error.code);
+    //                 console.log(response.error.description);
+    //                 console.log(response.error.source);
+    //                 console.log(response.error.step);
+    //                 console.log(response.error.reason);
+    //                 console.log(response.error.metadata.order_id);
+    //                 console.log(response.error.metadata.payment_id);
+    //                 alert("oops payment failed");
+    //             });
+
+    //         }
+    //     } catch (error) {
+    //         // Handle error
+    //         console.error("Error creating order:", error);
+    //     }
+    //    console.log(profiledetails);
+    //    console.log(orderDetails);
+
+    // };
 
     return (
         <div className='order-details'>
@@ -508,8 +540,37 @@ const OrderDetails = () => {
                 </div>
             </div>
 
+            {otpBox && (
+                <div className="otp-box">
+                  <div className="otp-container">
+                    <h5>Please enter the OTP sent to your mobile number</h5>
+              
+                    <OtpInput
+                      className="otp-input"
+                      value={OTP}
+                      onChange={setOTP}
+                      OTPLength={6}
+                      otpType="number"
+                      autoFocus
+                      secure
+                    />
+              
+                    {otpError && (
+                      <p className="error-message">Wrong OTP entered!</p>
+                    )}
+              
+                    <button type="button" onClick={handleVerifyOtp}>
+                      Verify OTP
+                    </button>
+              
+                    <span onClick={generateOtpCode}>Resend OTP</span>
+                  </div>
+                </div>
+              )}
         </div>
+        
     )
+      
 }
 
 export default OrderDetails

@@ -203,70 +203,70 @@
   .display-hidden {
     display: none !important;
   }
-  .otp-box {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 20;
-    width: 100%;
+}
+.otp-box {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 20;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #5555558e;
+  width: 100%;
+  height: 100vh;
+  .otp-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #5555558e;
-    width: 100%;
-    height: 100vh;
-    .otp-container {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      background-color: var(--dark-blue);
-      color: #ffff;
-      padding: 4vmax;
-      width: 30%;
-      border-radius: 10px;
-      h5 {
-        font-size: 1.4vmax;
-        font-weight: 600;
-        margin-bottom: 2vmax;
-        text-align: center;
+    background-color: var(--dark-blue);
+    color: #ffff;
+    padding: 4vmax;
+    width: 30%;
+    border-radius: 10px;
+    h5 {
+      font-size: 1.4vmax;
+      font-weight: 600;
+      margin-bottom: 2vmax;
+      text-align: center;
+    }
+    .otp-input {
+      input {
+        width: 28px !important;
+        height: 28px !important;
+        font-size: 3vmax;
+        margin-right: 8px !important;
+        padding: 0.1vmax;
       }
-      .otp-input {
-        input {
-          width: 28px !important;
-          height: 28px !important;
-          font-size: 3vmax;
-          margin-right: 8px !important;
-          padding: 0.1vmax;
-        }
-        input:focus {
-          outline: none;
-          border: none;
-        }
-      }
-      p {
-        color: red;
-        font-weight: 700;
-        font-size: 1vmax;
-        margin-top: 2vmax;
-      }
-      button {
-        margin-top: 1vmax;
+      input:focus {
+        outline: none;
         border: none;
-        padding: 0.5vmax 2vmax;
-        background-color: green;
-        color: #ffff;
-        border-radius: 20px;
-        font-weight: 600;
       }
-      span {
-        font-size: 1vmax;
-        margin-top: 0.5vmax;
-        text-decoration: underline;
-      }
-      span:hover {
-        cursor: pointer;
-      }
+    }
+    p {
+      color: red;
+      font-weight: 700;
+      font-size: 1vmax;
+      margin-top: 2vmax;
+    }
+    button {
+      margin-top: 1vmax;
+      border: none;
+      padding: 0.5vmax 2vmax;
+      background-color: green;
+      color: #ffff;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+    span {
+      font-size: 1vmax;
+      margin-top: 0.5vmax;
+      text-decoration: underline;
+    }
+    span:hover {
+      cursor: pointer;
     }
   }
 }
