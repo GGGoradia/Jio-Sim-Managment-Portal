@@ -171,7 +171,32 @@ const OrderDetails = () => {
     };
     const handelsubmit = (e) => {
         e.preventDefault();
-      
+
+        // SIMPLE VALIDATION
+        if (
+          !profiledetails.fullName ||
+          !profiledetails.gender ||
+          !profiledetails.dob ||
+          !profiledetails.phoneNumber ||
+          !profiledetails.address.street ||
+          !profiledetails.address.country ||
+          !profiledetails.address.state ||
+          !profiledetails.address.city ||
+          !profiledetails.address.postalCode
+        ) {
+          setErrors({
+            fullName: !profiledetails.fullName,
+            gender: !profiledetails.gender,
+            dob: !profiledetails.dob,
+            phoneNumber: !profiledetails.phoneNumber,
+            street: !profiledetails.address.street,
+            country: !profiledetails.address.country,
+            state: !profiledetails.address.state,
+            city: !profiledetails.address.city,
+            postalcode: !profiledetails.address.postalCode
+          });
+          return; 
+        }
         // Open OTP box
         generateOtpCode();
         setOtpBox(true);
@@ -380,7 +405,7 @@ const OrderDetails = () => {
 
                     <div className="dilevery-add">
                         <p>Do you want us to send PKI-SIM to :</p>
-                        <input type="radio" id="same-add" name="dilever-add" value="same-add" onChange={handleRadioChange} />
+                        <input type="radio" id="same-add" name="dilever-add" checked="same-add" value="same-add" onChange={handleRadioChange} />
                         <label htmlFor="same-add">Above address</label>
                         <input type="radio" id="different-add" name="dilever-add" value="different-add" onChange={handleRadioChange} />
                         <label htmlFor="different-add">Different address</label>
