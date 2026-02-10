@@ -89,7 +89,7 @@ const App = () => {
     },
     {
       path: '/user',
-      element :<PrivateRoute allowedRoles={["USER","ADMIN"]}/>,
+      element :<PrivateRoute allowedRoles={["ENDUSER","ADMIN"]}/>,
       children: [
         {
           path: 'dashboard',  

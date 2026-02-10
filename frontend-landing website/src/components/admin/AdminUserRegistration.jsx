@@ -33,7 +33,7 @@ const handleSubmit = async (e) => {
         username: form.username,
         email: form.email,
         password: form.password,
-        role: form.role === "USER" ? "ENDUSER" : form.role,
+        role: form.role,
         account_status: "ACTIVE"
       },
       {

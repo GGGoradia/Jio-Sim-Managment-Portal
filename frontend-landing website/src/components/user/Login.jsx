@@ -131,7 +131,7 @@ const Login = () => {
 
       if (role === "ADMIN") navigate("/admin/dashboard");
       else if (role === "AGENT") navigate("/agent/dashboard");
-      else if navigate("/user/dashboard");
+      else  navigate("/user/dashboard");
 
     } catch (error) {
       setIsLoginError(true);
