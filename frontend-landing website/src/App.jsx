@@ -5,6 +5,7 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import ChoosePlan from './components/orders/ChoosePlan';
 import Login from './components/user/Login';
 import Navbar2 from './components/page/Navbar2';
 import Path from './components/page/Path';
@@ -144,6 +145,10 @@ const App = () => {
     {
       path: "/sim/order/details",
       element: <><Navbar/><OrderDetails/><Footer/></>,
+    },
+    {
+      path: "/choose-plan",
+      element: <><Navbar/><ChoosePlan/><Footer/></>
     },
   ]);
   return (
