@@ -11,7 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const [user, setUser] = useState({
-    email: "",
+    emailOrUsername: "",
     password: ""
   });
 
@@ -46,31 +46,32 @@ const Login = () => {
   };
 
   useEffect(() => {
-    setIsButtonDisabled(!(user.email && user.password));
-  }, [user.email, user.password]);
+    setIsButtonDisabled(!(user.emailOrUsername && user.password));
+  }, [user.emailOrUsername, user.password]);
 
   /* ---------------- LOGIN ---------------- */
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { email, password } = user;
+    const { emailOrUsername, password } = user;
 
     /* ---------- DUMMY LOGIN (KEEP) ---------- */
     if (
-      (email === "admin@gmail.com" && password === "admin123") ||
-      (email === "agent@gmail.com" && password === "agent123") ||
-      (email === "user@gmail.com" && password === "user123")
+      (emailOrUsername === "admin@gmail.com" && password === "admin123") ||
+      (emailOrUsername === "agent@gmail.com" && password === "agent123") ||
+      (emailOrUsername === "user@gmail.com" && password === "user123")
     ) {
       let role = "USER";
 
-      if (email === "admin@gmail.com") role = "ADMIN";
-      else if (email === "agent@gmail.com") role = "AGENT";
+      if (emailOrUsername === "admin@gmail.com") role = "ADMIN";
+      else if (emailOrUsername === "agent@gmail.com") role = "AGENT";
 
       dispatch(
         setCredentials({
           user: {
-            username: email,
+            id:emailOrUsername,
+            email: emailOrUsername,
             roles: [role]
           },
           token: null
@@ -91,7 +92,7 @@ const Login = () => {
       const response = await axios.post(
         "http://10.145.52.5:5003/api/pkisim2.1/users/validate",
         {
-          username: email,
+          username: emailOrUsername,
           password: password
         },
         {
@@ -107,7 +108,7 @@ const Login = () => {
         throw new Error(data.message);
       }
 
-      const { username, role, accstatus, email: userEmail } = data.data;
+      const { emailOrUsername: username, role, accstatus, userEmail } = data.data;
 
       if (accstatus !== "ACTIVE") {
         toast.error("Account is inactive. Contact admin.");
@@ -117,7 +118,8 @@ const Login = () => {
       dispatch(
         setCredentials({
           user: {
-            username,
+            
+            username: emailOrUsername,
             email: userEmail,
             roles: [role]
           },
@@ -129,7 +131,7 @@ const Login = () => {
 
       if (role === "ADMIN") navigate("/admin/dashboard");
       else if (role === "AGENT") navigate("/agent/dashboard");
-      else navigate("/user/dashboard");
+      else if navigate("/user/dashboard");
 
     } catch (error) {
       setIsLoginError(true);
@@ -145,18 +147,18 @@ const Login = () => {
 
         <form className="login-form" onSubmit={handleSubmit}>
           {/* Email / Username */}
-          <div className={`input-box ${errors.email ? "errors-bar" : ""}`}>
+          <div className={`input-box ${errors.emailOrUsername ? "errors-bar" : ""}`}>
             <input
-              id="email"
+              id="emailOrUsername"
               type="text"
-              name="email"
-              value={user.email}
+              name="emailOrUsername"
+              value={user.emailOrUsername}
               onChange={handleInput}
               required
             />
-            <label htmlFor="email">E-mail ID / Jio User ID</label>
+            <label htmlFor="emailOrUsername">E-mail ID / Jio User ID</label>
           </div>
-          {errors.email && (
+          {errors.emailOrUsername && (
             <span className="error-message">
               <RxCrossCircled /> Enter E-mail ID / Jio User ID
             </span>

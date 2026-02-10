@@ -19,7 +19,7 @@ const AgentDashboard = () => {
   const [activeFilter, setActiveFilter] = useState("ALL");
   const [showModal, setShowModal] = useState(false);
 
-  const agentId = useSelector((state) => state.auth.user.id);
+  const username = useSelector((state) => state.auth.user.username);
   const dispatch = useDispatch();
 
   // ================== FETCH ==================
@@ -29,23 +29,31 @@ const AgentDashboard = () => {
 
   const fetchInventory = async () => {
     try {
-      const res = await axios.get("http://localhost:8080/api/inventory/all");
+      const res = await axios.post(
+        "http://10.145.52.5:5003/api/pkisim2.1/delivery/get", // this is not working due to unmatched backend response
+        { 
+          "username" : null//for now to show the page
+        },
+        {
+          headers:{
+            "Content-Type":"application/json"
+          }
+        }
+      );
       setInventory(res.data);
     } catch (err) {
       console.error(err);
     } finally {
       setLoading(false);
     }
+    // console.log("agentid:",username);
   };
-
-  // ================== FILTER BASE ==================
   const baseInventory = useMemo(() => {
     return editMode
-      ? inventory.filter((i) => i.agent === agentId)
+      ? inventory.filter((i) => i.agent === username)
       : inventory;
-  }, [inventory, editMode, agentId]);
+  }, [inventory, editMode, username]);
 
-  // ================== APPLY FILTERS ==================
   useEffect(() => {
     let data = [...baseInventory];
 
@@ -94,7 +102,7 @@ const AgentDashboard = () => {
     <>
       {/* ================== HEADER ================== */}
       <div className="top-header">
-        <h2>Welcome {agentId}</h2>
+        <h2>Welcome {username}</h2>
         <div>
           <button
             className="nav-link dropdown-toggle"

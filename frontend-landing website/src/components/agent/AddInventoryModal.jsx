@@ -4,13 +4,14 @@ import { useSelector } from "react-redux";
 
 const AddInventoryModal = ({ close, refresh }) => {
   
-  const agentid=useSelector((state)=>state.auth.user?.id)
+  const username=useSelector((state)=>state.auth.user.username)
 
   const [form, setForm] = useState({
     iccid: "",
-    agent: agentid,
+    username: username,// this is not working due to redux state bug 
     status: "",
     makeModel: "",
+    dateOfEntry: new Date().toISOString(),
   });
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -19,12 +20,13 @@ const AddInventoryModal = ({ close, refresh }) => {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:8080/api/inventory/add", form);
+      await axios.post("http://10.145.52.5:5003/api/pkisim2.1/delivery/insert", form);
       refresh();
       close();
     } catch (err) {
       alert("Failed to add inventory");
     }
+    console.log(username)
   };
 
   return (

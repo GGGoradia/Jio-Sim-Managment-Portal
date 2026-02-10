@@ -10,7 +10,7 @@ const AdminUserRegistration = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    role: "ADMIN",
+    role: "",
   });
   const [error, setError] = useState("");
 
@@ -28,7 +28,7 @@ const handleSubmit = async (e) => {
 
   try {
     const response = await axios.post(
-      "http://10.145.52.5:5003/api/pkisim2.1/users/insert", // your API URL here
+      "http://10.145.52.5:5003/api/pkisim2.1/users/insert", 
       {
         username: form.username,
         email: form.email,
