@@ -5,6 +5,7 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import DummyPayment from './components/orders/DummyPayment';
 import ChoosePlan from './components/orders/ChoosePlan';
 import Login from './components/user/Login';
 import Navbar2 from './components/page/Navbar2';
@@ -17,7 +18,7 @@ import Loader from './components/layouts/Loader';
 import UserPrivateroute from "./components/privateroutes/UserPrivateroute";
 import OrderLogin from './components/orders/OrderLogin.jsx';
 import OrderDetails from './components/orders/OrderDetails.jsx';
-import PaymentSucess from './components/orders/PymentSucess.jsx';
+import PymentSucess from './components/orders/PymentSucess.jsx';
 import Recording from './components/e-KYC/Recording.jsx';
 import PersonalDetails from './components/e-KYC/PersonalDetails.jsx';
 import TrackOrder from './components/orders/TrackOrder.jsx';
@@ -77,8 +78,12 @@ const App = () => {
       element: <><Navbar /><Loader /></>,
     },
     {
+      path:"/payment",
+      element: <><Navbar /><DummyPayment/><Footer/></>,
+    },
+    {
       path: "/payment_sucessfull",
-      element: <><Navbar /><PaymentSucess/><Footer/></>,
+      element: <><Navbar /><PymentSucess/><Footer/></>,
     },
     {
       path: "/bussiness/login",
