@@ -4,8 +4,31 @@ import { useNavigate } from "react-router-dom";
 
 const ChoosePlan = () => {
   const navigate = useNavigate();
-  const [selectedPlan, setSelectedPlan] = useState("");
-
+  const [selectedPlan, setSelectedPlan] = useState(null);
+  const PLANS = [
+    {
+      id: "PLAN_399",
+      name: "SIM + ₹399 Plan",
+      price: 399,
+      validity: "1 Year",
+      description: "Includes PKI-SIM & 40 Digital Signatures",
+    },
+    {
+      id: "PLAN_599",
+      name: "SIM + ₹599 Plan",
+      price: 599,
+      validity: "2 Years",
+      description: "Includes PKI-SIM & 80 digital signatures",
+    },
+    {
+      id: "PLAN_799",
+      name: "SIM + ₹799 Plan",
+      price: 799,
+      validity: "2 Years",
+      description: "Includes PKI-SIM & 120 digital signatures",
+    },
+  ];
+  
   const handleContinue = () => {
     if (!selectedPlan) {
       alert("Please select a plan to continue");
@@ -25,20 +48,22 @@ const ChoosePlan = () => {
         <p>Select one plan to proceed</p>
 
         <div className="plan-list">
-          {["Plan 1", "Plan 2", "Plan 3"].map((plan) => (
+          {PLANS.map((plan) => (
             <div
-              key={plan}
+              key={plan.id}
               className={`plan-card ${
-                selectedPlan === plan ? "active" : ""
+                selectedPlan?.id === plan.id ? "active" : ""
               }`}
               onClick={() => setSelectedPlan(plan)}
             >
-              <h4>{plan}</h4>
-              <p>Validity: 2 Years</p>
-              <p>Includes PKI-SIM & Digital Signature</p>
+              <h4>{plan.name}</h4>
+              <p><strong>Price:</strong> ₹{plan.price}</p>
+              <p><strong>Validity:</strong> {plan.validity}</p>
+              <p>{plan.description}</p>
             </div>
           ))}
         </div>
+
 
         <button className="continue-btn" onClick={handleContinue}>
           Continue
