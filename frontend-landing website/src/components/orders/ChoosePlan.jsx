@@ -15,8 +15,7 @@ const ChoosePlan = () => {
     // Store selected plan if needed later
     localStorage.setItem("selectedPlan", selectedPlan);
 
-    // Navigate to next step (change route if needed)
-    navigate("/payment_sucessfull");
+    
   };
 
   return (

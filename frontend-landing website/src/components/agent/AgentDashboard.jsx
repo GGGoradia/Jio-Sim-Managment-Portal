@@ -30,9 +30,9 @@ const AgentDashboard = () => {
   const fetchInventory = async () => {
     try {
       const res = await axios.post(
-        "http://10.145.52.5:5003/api/pkisim2.1/delivery/get", // this is not working due to unmatched backend response
+        "http://10.145.52.5:5003/api/pkisim2.1/delivery/get", // backend response was fixed figure out why not work
         { 
-          "username" : null//for now to show the page
+          "username" : username//for now to show the page
         },
         {
           headers:{
@@ -40,7 +40,7 @@ const AgentDashboard = () => {
           }
         }
       );
-      setInventory(res.data);
+      setInventory(res.data.data);
     } catch (err) {
       console.error(err);
     } finally {
