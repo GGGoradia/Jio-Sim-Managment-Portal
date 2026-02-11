@@ -1,17 +1,14 @@
 import React, { useState } from "react";
 import "@/css/ChoosePlan.css";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { addPlanToOrder } from "../features/order/orderSlice";
 
 
 const ChoosePlan = () => {
-  
-  const order = useSelector((state) => state.order.order);
-
-  useEffect(() => {
-    console.log("ORDER FROM REDUX:", order);
-  }, [order]);
+  const order=useSelector((state) => state.order.order);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [selectedPlan, setSelectedPlan] = useState(null);
   const PLANS = [
@@ -43,10 +40,19 @@ const ChoosePlan = () => {
       alert("Please select a plan to continue");
       return;
     }
-
-    // Store selected plan if needed later
-    localStorage.setItem("selectedPlan", selectedPlan);
-
+    dispatch(
+      addPlanToOrder({
+        planId: selectedPlan.id,
+        amount: selectedPlan.price,
+      })
+      
+    );
+    navigate("/payment")
+    
+    if (order==null) {
+      return <p>No order found. Please start again.</p>;
+    }
+    console.log(order)
     
   };
 
@@ -68,7 +74,7 @@ const ChoosePlan = () => {
               <h4>{plan.name}</h4>
               <p><strong>Total Price:</strong> ₹{plan.price}</p>
               <p><strong>Validity:</strong> {plan.validity}</p>
-              <p>{plan.description}</p>
+              <p>{plan.description}</p> 
             </div>
           ))}
         </div>
