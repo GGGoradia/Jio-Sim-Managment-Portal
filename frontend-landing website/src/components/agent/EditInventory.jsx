@@ -3,7 +3,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 
 const EditInventory = ({ item, close, refresh }) => {
-  const agentId = useSelector((state) => state.auth.user.id);
+  const username = useSelector((state) => state.auth.user.username);
   const originalIccid = item.iccid;
 
   const [form, setForm] = useState({
@@ -46,24 +46,31 @@ const EditInventory = ({ item, close, refresh }) => {
   };
   const handleSave = async () => {
     try {
-      await axios.put(
-        `http://localhost:8080/api/inventory/update/${originalIccid}`,
+      await axios.post(
+        "http://10.145.52.5:5003/api/pkisim2.1/delivery/update",
         {
           iccid: form.iccid,
-          makeModel: item.makeModel,
+          username, 
           status: form.status,
-          agent: item.agent,
+          makeModel: form.makeModel,
           comments: form.comments,
+          dateOfEntry: new Date().toISOString(), 
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
       );
+  
       refresh();
       close();
     } catch (err) {
-      alert("Update failed");
       console.error(err);
+      alert("Update failed");
     }
   };
-
+  
   return (
     <div className="inventorymodal-backdrop">
       <div className="inventory_modal">
