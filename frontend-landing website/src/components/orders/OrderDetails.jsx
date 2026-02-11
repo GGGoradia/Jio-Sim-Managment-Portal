@@ -6,6 +6,8 @@ import axios from 'axios';
 import PhoneInput from 'react-phone-input-2';
 import { useNavigate } from 'react-router-dom';
 import OtpInput from "otp-input-react";
+import { useDispatch } from "react-redux";
+import { saveOrderDetails } from "../features/order/orderSlice";
 
 const OrderDetails = () => {
     const navigate = useNavigate();
@@ -40,6 +42,7 @@ const OrderDetails = () => {
         amount: 2775,
         razorpayId: ''
     });
+    const dispatch=useDispatch();
     const [OTP, setOTP] = useState("");
     const [generatedOtp, setGeneratedOtp] = useState(0);
     const [otpBox, setOtpBox] = useState(false);
@@ -195,9 +198,28 @@ const OrderDetails = () => {
             city: !profiledetails.address.city,
             postalcode: !profiledetails.address.postalCode
           });
-          return; 
+          return;
+
         }
-        // Open OTP box
+
+        const finalOrderJson = {
+            customer: {
+              fullName: profiledetails.fullName,
+              gender: profiledetails.gender,
+              dob: profiledetails.dob,
+              phoneNumber: profiledetails.phoneNumber,
+            },
+            billingAddress: {
+              ...profiledetails.address,
+            },
+            deliveryAddress: diffaddress
+              ? { ...orderDetails.deliveryAddress }
+              : { ...profiledetails.address },
+            planId: null,
+            amount: orderDetails.amount,
+          };
+        
+        dispatch(saveOrderDetails(finalOrderJson));
         generateOtpCode();
         setOtpBox(true);
       };
@@ -538,10 +560,10 @@ const OrderDetails = () => {
                         <li>Validity <span className='text-bold'>2 Years</span></li>
                     </ul>
                     <hr />
-                    <din className="coupon-box">
+                    <div className="coupon-box">
                         <p>Have a coupon code?<span>Apply Coupon</span></p>
                         <p className='apply-coupon'>Apply coupon code EM10 to get 10%</p>
-                    </din>
+                    </div>
                     <hr />
                     <div className='price-details'>
                         <ul>
