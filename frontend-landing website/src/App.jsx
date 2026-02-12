@@ -5,6 +5,7 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import UserList from './components/admin/UserList';
 import DummyPayment from './components/orders/DummyPayment';
 import ChoosePlan from './components/orders/ChoosePlan';
 import Login from './components/user/Login';

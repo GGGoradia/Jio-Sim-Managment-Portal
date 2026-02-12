@@ -121,7 +121,6 @@ const handleSubmit = async (e) => {
             <div className="input-group">
               <label>Role</label>
               <select name="role" onChange={handleChange}>
-                <option value="ENDUSER">User</option>
                 <option value="AGENT">Agent</option>
               </select>
             </div>

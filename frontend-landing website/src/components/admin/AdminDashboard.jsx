@@ -13,10 +13,10 @@ import AdminUserRegistration from './AdminUserRegistration';
 const AdminDashboard = () => {
 
   const [activeMenu, setActiveMenu] = useState("ADD_USER");
-  const [content, setContent] = useState(20);
+  const [content, setContent] = useState(8);
   const [user, setUser] = useState({});
 
-  const adminId = useSelector((state) => state.auth.user.name);
+  const adminId = useSelector((state) => state.auth.user.username);
 
   useEffect(() => {
     localStorage.setItem('user', JSON.stringify(adminId));
