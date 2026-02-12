@@ -19,7 +19,7 @@ const DummyPayment = () => {
       console.log("SENDING ORDER TO API:", order);
 
       await axios.post(
-        "http://<YOUR_BACKEND_URL>/api/order/create", // replace endpoint
+        "http://10.145.52.5:5003/api/pkisim2.1/orders/create", // replace endpoint
         order,
         {
           headers: {

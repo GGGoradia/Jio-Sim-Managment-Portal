@@ -5,8 +5,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import 'react-phone-input-2/lib/style.css'
 import OtpInput from 'otp-input-react';
 import axios from 'axios';
-const Signin = () => {
+import { useDispatch } from 'react-redux';
+import { setOrder } from '../features/order/orderSlice';
+import { useSelector } from 'react-redux';
 
+const Signin = () => {
+    const order = useSelector((state) => state.order.order);
+    const dispatch=useDispatch();
     const navigate = useNavigate();
     const [errors, setErrors] = useState({});
     const [OTP, setOTP] = useState("");
@@ -111,11 +116,14 @@ const Signin = () => {
                     if(typeOfUser ===1 || typeOfUser===3)
                     {
                         localStorage.setItem('pki-users', JSON.stringify(response.data.data));
+                        dispatch(setOrder({username: newUser.fullName}));
                     }
                 else{
                     localStorage.setItem('pki-users', JSON.stringify(response.data));
                 }
-                    navigate('/sim/order/details');
+                navigate('/sim/order/details');
+                console.log(order)
+                    
                 }
             } catch (error) {
                 console.log(error.response);

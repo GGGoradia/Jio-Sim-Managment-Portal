@@ -204,19 +204,21 @@ const OrderDetails = () => {
 
         const finalOrderJson = {
             customer: {
-              fullName: profiledetails.fullName,
-              gender: profiledetails.gender,
-              dob: profiledetails.dob,
-              phoneNumber: profiledetails.phoneNumber,
+                fullName: profiledetails.fullName,
+                gender: profiledetails.gender,
+                dob: profiledetails.dob,
+                phoneNumber: profiledetails.phoneNumber,
             },
             billingAddress: {
-              ...profiledetails.address,
+                ...profiledetails.address,
             },
             deliveryAddress: diffaddress
-              ? { ...orderDetails.deliveryAddress }
-              : { ...profiledetails.address },
+            ? { ...orderDetails.deliveryAddress }
+            : { ...profiledetails.address },
             planId: null,
             amount: orderDetails.amount,
+            username:"sample.username"
+
           };
         
         dispatch(saveOrderDetails(finalOrderJson));
