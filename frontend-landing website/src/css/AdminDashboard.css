@@ -9,7 +9,7 @@
   align-items: center;
   padding: 1vmax 2vmax;
   color: white;
-  background-color: #161d6f;
+  background-color: #0f3cc9;;
   .nav-item {
     border: none;
   }
@@ -22,8 +22,8 @@
   list-style: none;
   color: white;
   padding: 0;
-  background-color: #161d6f;
-  border-right: 2px solid #161d6f;
+  background-color: #0f3cc9;;
+  border-right: 2px solid #0f3cc9;;
   height: 100%;
   li {
     padding: 1.5vmax 2vmax;
