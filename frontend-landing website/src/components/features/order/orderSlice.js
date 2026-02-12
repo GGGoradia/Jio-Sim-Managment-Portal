@@ -17,10 +17,11 @@ const orderSlice = createSlice({
         state.order.amount = action.payload.amount;
       }
     },
-    setOrder:(state,action)=>{
-      if(state.order){
-        state.order.username=action.payload.username;
-      }
+    setOrder: (state, action) => {
+      state.order = {
+        ...(state.order || {}),
+        username: action.payload.username,
+      };
     },
     clearOrder: (state) => {
       state.order = null;

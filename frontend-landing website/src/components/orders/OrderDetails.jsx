@@ -217,7 +217,7 @@ const OrderDetails = () => {
             : { ...profiledetails.address },
             planId: null,
             amount: orderDetails.amount,
-            username:"sample.username"
+            username:user.fullName
 
           };
         
